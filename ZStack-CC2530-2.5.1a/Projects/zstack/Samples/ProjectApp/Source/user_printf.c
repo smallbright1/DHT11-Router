@@ -28,11 +28,11 @@
 
 #include "user_printf.h"
 #include "stdarg.h"
-#include "user_uart0.h"
+#include "hal_uart.h"
 
 void putchar(char c);
 void putchar(char c){
-//USER_Uart0_SendByte( c );
+  HalUARTWrite(HAL_UART_PORT_0, (uint8*)&c, 1);
 }
 
 static void printchar(char **str, int c)

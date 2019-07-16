@@ -305,8 +305,13 @@
                 </option>
                 <option>
                     <name>CCDefines</name>
-                    <state>HAL_LCD=FALSE</state>
+                    <state>xZTOOL_P1</state>
+                    <state>xMT_TASK</state>
                     <state>HAL_UART=TRUE</state>
+                    <state>xMT_SYS_FUNC</state>
+                    <state>xMT_ZDO_FUNC</state>
+                    <state>xLCD_SUPPORTED=DEBUG</state>
+                    <state>HAL_LCD=FALSE </state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -955,24 +960,24 @@
                 </option>
                 <option>
                     <name>AllowExtraOutput</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>GenerateExtraOutput</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>XExtraOutOverride</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>ExtraOutputFile</name>
-                    <state>ProjectApp-C.hex</state>
+                    <state>ProjectApp.sim</state>
                 </option>
                 <option>
                     <name>ExtraOutputFormat</name>
                     <version>11</version>
-                    <state>23</state>
+                    <state>60</state>
                 </option>
                 <option>
                     <name>ExtraFormatVariant</name>
@@ -1440,8 +1445,13 @@
                 </option>
                 <option>
                     <name>CCDefines</name>
-                    <state>HAL_LCD=FALSE</state>
+                    <state>xZTOOL_P1</state>
+                    <state>xMT_TASK</state>
+                    <state>xMT_SYS_FUNC</state>
+                    <state>xMT_ZDO_FUNC</state>
                     <state>HAL_UART=TRUE</state>
+                    <state>xLCD_SUPPORTED=DEBUG</state>
+                    <state>HAL_LCD=FALSE </state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -2090,24 +2100,24 @@
                 </option>
                 <option>
                     <name>AllowExtraOutput</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>GenerateExtraOutput</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>XExtraOutOverride</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>ExtraOutputFile</name>
-                    <state>ProjectApp-R.hex</state>
+                    <state>ProjectApp.sim</state>
                 </option>
                 <option>
                     <name>ExtraOutputFormat</name>
                     <version>11</version>
-                    <state>23</state>
+                    <state>60</state>
                 </option>
                 <option>
                     <name>ExtraFormatVariant</name>
@@ -2576,8 +2586,12 @@
                 <option>
                     <name>CCDefines</name>
                     <state>NWK_AUTO_POLL</state>
-                    <state>HAL_LCD=FALSE</state>
-                    <state>HAL_UART=TRUE</state>
+                    <state>ZTOOL_P1</state>
+                    <state>MT_TASK</state>
+                    <state>MT_SYS_FUNC</state>
+                    <state>MT_ZDO_FUNC</state>
+                    <state>xLCD_SUPPORTED=DEBUG</state>
+                    <state>HAL_LCD=FALSE </state>
                     <state>xPOWER_SAVING</state>
                 </option>
                 <option>
@@ -3227,24 +3241,24 @@
                 </option>
                 <option>
                     <name>AllowExtraOutput</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>GenerateExtraOutput</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>XExtraOutOverride</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>ExtraOutputFile</name>
-                    <state>ProjectApp-E.hex</state>
+                    <state>ProjectApp.sim</state>
                 </option>
                 <option>
                     <name>ExtraOutputFormat</name>
                     <version>11</version>
-                    <state>23</state>
+                    <state>60</state>
                 </option>
                 <option>
                     <name>ExtraFormatVariant</name>
@@ -3418,12 +3432,6 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\Source\ProjectApp.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\Source\ProjectAppCB.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\Source\ProjectAppCB.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\Source\user_api.c</name>

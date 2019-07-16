@@ -1,0 +1,655 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V10.30.1.6000 for 8051               14/Jul/2019  10:41:46
+# Copyright 2004-2018 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for 8051
+#
+#    Core               =  plain
+#    Code model         =  banked
+#    Data model         =  large
+#    Calling convention =  xdata reentrant
+#    Constant location  =  data_rom
+#    Dptr setup         =  1,16
+#                          
+#    Source file        =  
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\Source\user_api.c
+#    Command line       =  
+#        -f C:\Users\Admin\AppData\Local\Temp\EW42A0.tmp
+#        (E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\Source\user_api.c
+#        -D xZTOOL_P1 -D xMT_TASK -D xMT_SYS_FUNC -D xMT_ZDO_FUNC -D
+#        HAL_UART=TRUE -D xLCD_SUPPORTED=DEBUG -D HAL_LCD=FALSE -lC
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\RouterEB\List
+#        -lA
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\RouterEB\List
+#        --diag_suppress Pe001,Pa010 -o
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\RouterEB\Obj
+#        -e --debug --core=plain --dptr=16,1 --data_model=large
+#        --code_model=banked --calling_convention=xdata_reentrant
+#        --place_constants=data_rom --nr_virtual_regs 8 -f
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wRouter.cfg
+#        (-DCPU32MHZ -DROOT=__near_func -DMAC_CFG_APP_PENDING_QUEUE=TRUE
+#        -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8 -DMAC_CFG_RX_MAX=5
+#        -DRTR_NWK) -f
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
+#        (-DZIGBEEPRO -DSECURE=0 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x00000800 -DZDAPP_CONFIG_PAN_ID=0xFFFF
+#        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
+#        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
+#        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
+#        -DAPSC_ACK_WAIT_DURATION_POLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7
+#        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
+#        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
+#        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
+#        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07,
+#        0x09, 0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C,
+#        0x0D}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+#        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE
+#        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100
+#        -DREJOIN_POLL_RATE=440) -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\Source\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\ZMain\TI2530DB\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\hal\include\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\mac\include\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\mac\high_level\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\mt\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\osal\include\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\services\saddr\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\services\sdata\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\stack\af\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\stack\nwk\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\stack\sapi\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\stack\sec\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\stack\sys\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\stack\zdo\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\zmac\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\zmac\f8w\
+#        -Ohz --require_prototypes --no_code_motion)
+#    Locale             =  Chinese (Simplified)_CHN.936
+#    List file          =  
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\RouterEB\List\user_api.lst
+#    Object file        =  
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\RouterEB\Obj\user_api.r51
+#
+###############################################################################
+
+E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\Source\user_api.c
+      1          #include "user_api.h"
+      2          #include "ProjectApp.h"
+      3          #include "user_printf.h"
+      4          #include "string.h"
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+      5          const uint8* devStates_str[11]=
+   \                     devStates_str:
+   \   000000                DS 22
+   \   000016                REQUIRE `?<Initializer for devStates_str>`
+   \   000016                REQUIRE __INIT_XDATA_I
+      6          {
+      7            "DEV_HOLD",               // Initialized - not started automatically
+      8            "DEV_INIT",               // Initialized - not connected to anything
+      9            "DEV_NWK_DISC",           // Discovering PAN's to join
+     10            "DEV_NWK_JOINING",        // Joining a PAN
+     11            "DEV_NWK_REJOIN",         // ReJoining a PAN, only for end devices
+     12            "DEV_END_DEVICE_UNAUTH",  // Joined but not yet authenticated by trust center
+     13            "DEV_END_DEVICE",         // Started as device after authentication
+     14            "DEV_ROUTER",             // Device joined, authenticated and is a router
+     15            "DEV_COORD_STARTING",     // Started as Zigbee Coordinator
+     16            "DEV_ZB_COORD",           // Started as Zigbee Coordinator
+     17            "DEV_NWK_ORPHAN"          // Device has lost information about its parent..
+     18          };
+     19          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     20          void user_show_info(void)
+   \                     user_show_info:
+     21          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000                REQUIRE ?V2
+   \   000000                REQUIRE ?V3
+   \   000000   74F4         MOV       A,#-0xc
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 0
+     22            uint8 *MacAddr = 0;
+     23          
+     24            printf("Channel:%02X\r\n", _NIB.nwkLogicalChannel);
+   \   000005                ; Setup parameters for call to function printf
+   \   000005   90....       MOV       DPTR,#_NIB + 22
+   \   000008   E0           MOVX      A,@DPTR
+   \   000009   F5..         MOV       ?V0,A
+   \   00000B   75..00       MOV       ?V1,#0x0
+   \   00000E   78..         MOV       R0,#?V0
+   \   000010   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   000013   7A..         MOV       R2,#`?<Constant "Channel:%02X\\r\\n">` & 0xff
+   \   000015   7B..         MOV       R3,#(`?<Constant "Channel:%02X\\r\\n">` >> 8) & 0xff
+   \   000017   12....       LCALL     ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_0:
+   \   00001A   12....       LCALL     ?DEALLOC_XSTACK8
+     25            printf("NwkPANID:%04X\r\n",_NIB.nwkPanId);
+   \   00001D                ; Setup parameters for call to function printf
+   \   00001D   90....       MOV       DPTR,#_NIB + 33
+   \   000020   12....       LCALL     ?PUSH_XSTACK8_X_TWO
+   \   000023   7A..         MOV       R2,#`?<Constant "NwkPANID:%04X\\r\\n">` & 0xff
+   \   000025   7B..         MOV       R3,#(`?<Constant "NwkPANID:%04X\\r\\n">` >> 8) & 0xff
+   \   000027   12....       LCALL     ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_1:
+   \   00002A   12....       LCALL     ?DEALLOC_XSTACK8
+     26          
+     27            NLME_GetCoordExtAddr(MacAddr);
+   \   00002D                ; Setup parameters for call to function NLME_GetCoordExtAddr
+   \   00002D   7A00         MOV       R2,#0x0
+   \   00002F   7B00         MOV       R3,#0x0
+   \   000031   12....       LCALL     `??NLME_GetCoordExtAddr::?relay`; Banked call to: NLME_GetCoordExtAddr
+     28            printf("Fath_Nwk:%04X  ",NLME_GetCoordShortAddr());
+   \   000034                ; Setup parameters for call to function NLME_GetCoordShortAddr
+   \   000034   12....       LCALL     `??NLME_GetCoordShortAddr::?relay`; Banked call to: NLME_GetCoordShortAddr
+   \   000037   8A..         MOV       ?V0,R2
+   \   000039   8B..         MOV       ?V1,R3
+   \   00003B                ; Setup parameters for call to function printf
+   \   00003B   78..         MOV       R0,#?V0
+   \   00003D   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   000040   7A..         MOV       R2,#`?<Constant "Fath_Nwk:%04X  ">` & 0xff
+   \   000042   7B..         MOV       R3,#(`?<Constant "Fath_Nwk:%04X  ">` >> 8) & 0xff
+   \   000044   12....       LCALL     ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_2:
+   \   000047   12....       LCALL     ?DEALLOC_XSTACK8
+     29            printf("Fath_Mac:%04X%04X%04X%04X\r\n",
+     30                   *((uint16*)(&MacAddr[6])),
+     31                   *((uint16*)(&MacAddr[4])),
+     32                   *((uint16*)(&MacAddr[2])),
+     33                   *((uint16*)(&MacAddr[0])));
+   \   00004A                ; Setup parameters for call to function printf
+   \   00004A   900000       MOV       DPTR,#0x0
+   \   00004D   12....       LCALL     ?PUSH_XSTACK8_X_TWO
+   \   000050   900002       MOV       DPTR,#0x2
+   \   000053   12....       LCALL     ?PUSH_XSTACK8_X_TWO
+   \   000056   900004       MOV       DPTR,#0x4
+   \   000059   12....       LCALL     ?PUSH_XSTACK8_X_TWO
+   \   00005C   900006       MOV       DPTR,#0x6
+   \   00005F   12....       LCALL     ?PUSH_XSTACK8_X_TWO
+   \   000062   7A..         MOV       R2,#`?<Constant "Fath_Mac:%04X%04X%04X...">` & 0xff
+   \   000064   7B..         MOV       R3,#(`?<Constant "Fath_Mac:%04X%04X%04X...">` >> 8) & 0xff
+   \   000066   12....       LCALL     `??printf::?relay`; Banked call to: printf
+   \   000069   7408         MOV       A,#0x8
+   \   00006B   12....       LCALL     ?DEALLOC_XSTACK8
+     34          
+     35            MacAddr = NLME_GetExtAddr();
+   \   00006E                ; Setup parameters for call to function NLME_GetExtAddr
+   \   00006E   12....       LCALL     `??NLME_GetExtAddr::?relay`; Banked call to: NLME_GetExtAddr
+   \   000071   8A..         MOV       ?V0,R2
+   \   000073   8B..         MOV       ?V1,R3
+   \   000075   AE..         MOV       R6,?V0
+   \   000077   AF..         MOV       R7,?V1
+     36            printf("Self_Nwk:%04X  ",NLME_GetShortAddr());
+   \   000079                ; Setup parameters for call to function NLME_GetShortAddr
+   \   000079   12....       LCALL     `??NLME_GetShortAddr::?relay`; Banked call to: NLME_GetShortAddr
+   \   00007C   8A..         MOV       ?V0,R2
+   \   00007E   8B..         MOV       ?V1,R3
+   \   000080                ; Setup parameters for call to function printf
+   \   000080   78..         MOV       R0,#?V0
+   \   000082   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   000085   7A..         MOV       R2,#`?<Constant "Self_Nwk:%04X  ">` & 0xff
+   \   000087   7B..         MOV       R3,#(`?<Constant "Self_Nwk:%04X  ">` >> 8) & 0xff
+   \   000089   12....       LCALL     ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_3:
+   \   00008C   12....       LCALL     ?DEALLOC_XSTACK8
+     37            printf("Self_Mac:%04X%04X%04X%04X\r\n",
+     38                   *((uint16*)(&MacAddr[6])),
+     39                   *((uint16*)(&MacAddr[4])),
+     40                   *((uint16*)(&MacAddr[2])),
+     41                   *((uint16*)(&MacAddr[0])));
+   \   00008F                ; Setup parameters for call to function printf
+   \   00008F   8E82         MOV       DPL,R6
+   \   000091   8F83         MOV       DPH,R7
+   \   000093   12....       LCALL     ?PUSH_XSTACK8_X_TWO
+   \   000096   8E82         MOV       DPL,R6
+   \   000098   8F83         MOV       DPH,R7
+   \   00009A   A3           INC       DPTR
+   \   00009B   A3           INC       DPTR
+   \   00009C   12....       LCALL     ?PUSH_XSTACK8_X_TWO
+   \   00009F   8E82         MOV       DPL,R6
+   \   0000A1   8F83         MOV       DPH,R7
+   \   0000A3   A3           INC       DPTR
+   \   0000A4   A3           INC       DPTR
+   \   0000A5   A3           INC       DPTR
+   \   0000A6   A3           INC       DPTR
+   \   0000A7   12....       LCALL     ?PUSH_XSTACK8_X_TWO
+   \   0000AA   8E82         MOV       DPL,R6
+   \   0000AC   8F83         MOV       DPH,R7
+   \   0000AE   A3           INC       DPTR
+   \   0000AF   A3           INC       DPTR
+   \   0000B0   A3           INC       DPTR
+   \   0000B1   A3           INC       DPTR
+   \   0000B2   A3           INC       DPTR
+   \   0000B3   A3           INC       DPTR
+   \   0000B4   12....       LCALL     ?PUSH_XSTACK8_X_TWO
+   \   0000B7   7A..         MOV       R2,#`?<Constant "Self_Mac:%04X%04X%04X...">` & 0xff
+   \   0000B9   7B..         MOV       R3,#(`?<Constant "Self_Mac:%04X%04X%04X...">` >> 8) & 0xff
+   \   0000BB   12....       LCALL     `??printf::?relay`; Banked call to: printf
+   \   0000BE   7408         MOV       A,#0x8
+   \   0000C0                REQUIRE ?Subroutine0
+   \   0000C0                ; // Fall through to label ?Subroutine0
+     42          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   12....       LCALL     ?DEALLOC_XSTACK8
+   \   000003   7F04         MOV       R7,#0x4
+   \   000005   02....       LJMP      ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   12....       LCALL     `??printf::?relay`; Banked call to: printf
+   \   000003   7402         MOV       A,#0x2
+   \   000005   22           RET
+     43          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     44          afStatus_t user_send_data( afAddrMode_t mode, uint16 addr, char *data_buf )
+   \                     user_send_data:
+     45          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000                REQUIRE ?V2
+   \   000000                REQUIRE ?V3
+   \   000000   74F4         MOV       A,#-0xc
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 12
+   \   000005   74F4         MOV       A,#-0xc
+   \   000007   12....       LCALL     ?ALLOC_XSTACK8
+   \   00000A   8C..         MOV       ?V0,R4
+   \   00000C   8D..         MOV       ?V1,R5
+     46            static uint8 transID;
+     47            afAddrType_t dstAddr;
+     48            afStatus_t status;
+     49          
+     50            dstAddr.addrMode = mode;
+   \   00000E   7408         MOV       A,#0x8
+   \   000010   12....       LCALL     ?XSTACK_DISP0_8
+   \   000013   E9           MOV       A,R1
+   \   000014   F0           MOVX      @DPTR,A
+     51            dstAddr.endPoint = PROJECTAPP_ENDPOINT;
+   \   000015   7409         MOV       A,#0x9
+   \   000017   12....       LCALL     ?XSTACK_DISP0_8
+   \   00001A   740A         MOV       A,#0xa
+   \   00001C   F0           MOVX      @DPTR,A
+     52            dstAddr.addr.shortAddr = addr;
+   \   00001D   85..82       MOV       DPL,?XSP + 0
+   \   000020   85..83       MOV       DPH,?XSP + 1
+   \   000023   EA           MOV       A,R2
+   \   000024   F0           MOVX      @DPTR,A
+   \   000025   A3           INC       DPTR
+   \   000026   EB           MOV       A,R3
+   \   000027   F0           MOVX      @DPTR,A
+     53          
+     54            status= AF_DataRequest( &dstAddr,
+     55                                    &ProjectApp_epDesc,
+     56                                    PROJECTAPP_CLUSTERID,
+     57                                    strlen((const char *)data_buf)+1,
+     58                                    (uint8 *)data_buf,
+     59                                    &transID,
+     60                                    AF_DISCV_ROUTE,
+     61                                    AF_DEFAULT_RADIUS );
+     62          
+     63            return status;
+   \   000028                ; Setup parameters for call to function strlen
+   \   000028   AA..         MOV       R2,?V0
+   \   00002A   AB..         MOV       R3,?V1
+   \   00002C   12....       LCALL     `??strlen::?relay`; Banked call to: strlen
+   \   00002F                ; Setup parameters for call to function AF_DataRequest
+   \   00002F   75..1E       MOV       ?V2,#0x1e
+   \   000032   78..         MOV       R0,#?V2
+   \   000034   12....       LCALL     ?PUSH_XSTACK_I_ONE
+   \   000037   75....       MOV       ?V2,#??transID & 0xff
+   \   00003A   75....       MOV       ?V3,#(??transID >> 8) & 0xff
+   \   00003D   78..         MOV       R0,#?V2
+   \   00003F   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   000042   78..         MOV       R0,#?V0
+   \   000044   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   000047   EA           MOV       A,R2
+   \   000048   2401         ADD       A,#0x1
+   \   00004A   F5..         MOV       ?V0,A
+   \   00004C   E4           CLR       A
+   \   00004D   3B           ADDC      A,R3
+   \   00004E   F5..         MOV       ?V1,A
+   \   000050   78..         MOV       R0,#?V0
+   \   000052   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   000055   75..01       MOV       ?V0,#0x1
+   \   000058   75..00       MOV       ?V1,#0x0
+   \   00005B   78..         MOV       R0,#?V0
+   \   00005D   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   000060   7920         MOV       R1,#0x20
+   \   000062   7C..         MOV       R4,#ProjectApp_epDesc & 0xff
+   \   000064   7D..         MOV       R5,#(ProjectApp_epDesc >> 8) & 0xff
+   \   000066   7409         MOV       A,#0x9
+   \   000068   12....       LCALL     ?XSTACK_DISP101_8
+   \   00006B   12....       LCALL     `??AF_DataRequest::?relay`; Banked call to: AF_DataRequest
+   \   00006E   7409         MOV       A,#0x9
+   \   000070   12....       LCALL     ?DEALLOC_XSTACK8
+   \   000073   740C         MOV       A,#0xc
+   \   000075   80..         SJMP      ?Subroutine0
+     64          }
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \                     ??transID:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     65          void user_state_change( devStates_t state )
+   \                     user_state_change:
+     66          {
+   \   000000   74F7         MOV       A,#-0x9
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+   \   000005   E9           MOV       A,R1
+   \   000006   FE           MOV       R6,A
+     67            printf("DEV:%s\r\n",devStates_str[state]);
+   \   000007                ; Setup parameters for call to function printf
+   \   000007   29           ADD       A,R1
+   \   000008   F8           MOV       R0,A
+   \   000009   E4           CLR       A
+   \   00000A   33           RLC       A
+   \   00000B   F9           MOV       R1,A
+   \   00000C   74..         MOV       A,#devStates_str & 0xff
+   \   00000E   28           ADD       A,R0
+   \   00000F   F582         MOV       DPL,A
+   \   000011   74..         MOV       A,#(devStates_str >> 8) & 0xff
+   \   000013   39           ADDC      A,R1
+   \   000014   F583         MOV       DPH,A
+   \   000016   12....       LCALL     ?PUSH_XSTACK8_X_TWO
+   \   000019   7A..         MOV       R2,#`?<Constant "DEV:%s\\r\\n">` & 0xff
+   \   00001B   7B..         MOV       R3,#(`?<Constant "DEV:%s\\r\\n">` >> 8) & 0xff
+   \   00001D   12....       LCALL     ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_4:
+   \   000020   12....       LCALL     ?DEALLOC_XSTACK8
+     68          
+     69            if((state == DEV_ZB_COORD)
+     70             ||(state == DEV_ROUTER)
+     71             ||(state == DEV_END_DEVICE))
+   \   000023   7409         MOV       A,#0x9
+   \   000025   6E           XRL       A,R6
+   \   000026   600A         JZ        ??user_state_change_0
+   \   000028   7407         MOV       A,#0x7
+   \   00002A   6E           XRL       A,R6
+   \   00002B   6005         JZ        ??user_state_change_0
+   \   00002D   7406         MOV       A,#0x6
+   \   00002F   6E           XRL       A,R6
+   \   000030   7017         JNZ       ??user_state_change_1
+     72            {
+     73              printf("\r\n");
+   \                     ??user_state_change_0:
+   \   000032                ; Setup parameters for call to function printf
+   \   000032   7A..         MOV       R2,#`?<Constant "\\r\\n">` & 0xff
+   \   000034   7B..         MOV       R3,#(`?<Constant "\\r\\n">` >> 8) & 0xff
+   \   000036   12....       LCALL     `??printf::?relay`; Banked call to: printf
+     74              user_show_info();
+   \   000039                ; Setup parameters for call to function user_show_info
+   \   000039   12....       LCALL     `??user_show_info::?relay`; Banked call to: user_show_info
+     75              user_send_data((afAddrMode_t)Addr16Bit, 0x0000, "New Device Join");
+   \   00003C                ; Setup parameters for call to function user_send_data
+   \   00003C   7C..         MOV       R4,#`?<Constant "New Device Join">` & 0xff
+   \   00003E   7D..         MOV       R5,#(`?<Constant "New Device Join">` >> 8) & 0xff
+   \   000040   7A00         MOV       R2,#0x0
+   \   000042   7B00         MOV       R3,#0x0
+   \   000044   7902         MOV       R1,#0x2
+   \   000046   12....       LCALL     `??user_send_data::?relay`; Banked call to: user_send_data
+     76            }
+     77          }
+   \                     ??user_state_change_1:
+   \   000049   7F01         MOV       R7,#0x1
+   \   00004B   02....       LJMP      ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for devStates_str>`:
+   \   000000   ....         DW `?<Constant "DEV_HOLD">`
+   \   000002   ....         DW `?<Constant "DEV_INIT">`
+   \   000004   ....         DW `?<Constant "DEV_NWK_DISC">`
+   \   000006   ....         DW `?<Constant "DEV_NWK_JOINING">`
+   \   000008   ....         DW `?<Constant "DEV_NWK_REJOIN">`
+   \   00000A   ....         DW `?<Constant "DEV_END_DEVICE_UNAUTH">`
+   \   00000C   ....         DW `?<Constant "DEV_END_DEVICE">`
+   \   00000E   ....         DW `?<Constant "DEV_ROUTER">`
+   \   000010   ....         DW `?<Constant "DEV_COORD_STARTING">`
+   \   000012   ....         DW `?<Constant "DEV_ZB_COORD">`
+   \   000014   ....         DW `?<Constant "DEV_NWK_ORPHAN">`
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DEV_HOLD">`:
+   \   000000   4445565F     DB "DEV_HOLD"
+   \            484F4C44
+   \            00      
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DEV_INIT">`:
+   \   000000   4445565F     DB "DEV_INIT"
+   \            494E4954
+   \            00      
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DEV_NWK_DISC">`:
+   \   000000   4445565F     DB "DEV_NWK_DISC"
+   \            4E574B5F
+   \            44495343
+   \            00      
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DEV_NWK_JOINING">`:
+   \   000000   4445565F     DB "DEV_NWK_JOINING"
+   \            4E574B5F
+   \            4A4F494E
+   \            494E4700
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DEV_NWK_REJOIN">`:
+   \   000000   4445565F     DB "DEV_NWK_REJOIN"
+   \            4E574B5F
+   \            52454A4F
+   \            494E00  
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DEV_END_DEVICE_UNAUTH">`:
+   \   000000   4445565F     DB "DEV_END_DEVICE_UNAUTH"
+   \            454E445F
+   \            44455649
+   \            43455F55
+   \            4E415554
+   \            4800    
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DEV_END_DEVICE">`:
+   \   000000   4445565F     DB "DEV_END_DEVICE"
+   \            454E445F
+   \            44455649
+   \            434500  
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DEV_ROUTER">`:
+   \   000000   4445565F     DB "DEV_ROUTER"
+   \            524F5554
+   \            455200  
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DEV_COORD_STARTING">`:
+   \   000000   4445565F     DB "DEV_COORD_STARTING"
+   \            434F4F52
+   \            445F5354
+   \            41525449
+   \            4E4700  
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DEV_ZB_COORD">`:
+   \   000000   4445565F     DB "DEV_ZB_COORD"
+   \            5A425F43
+   \            4F4F5244
+   \            00      
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DEV_NWK_ORPHAN">`:
+   \   000000   4445565F     DB "DEV_NWK_ORPHAN"
+   \            4E574B5F
+   \            4F525048
+   \            414E00  
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "Channel:%02X\\r\\n">`:
+   \   000000   4368616E     DB "Channel:%02X\015\012"
+   \            6E656C3A
+   \            25303258
+   \            0D0A00  
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "NwkPANID:%04X\\r\\n">`:
+   \   000000   4E776B50     DB "NwkPANID:%04X\015\012"
+   \            414E4944
+   \            3A253034
+   \            580D0A00
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "Fath_Nwk:%04X  ">`:
+   \   000000   46617468     DB "Fath_Nwk:%04X  "
+   \            5F4E776B
+   \            3A253034
+   \            58202000
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "Fath_Mac:%04X%04X%04X...">`:
+   \   000000   46617468     DB "Fath_Mac:%04X%04X%04X%04X\015\012"
+   \            5F4D6163
+   \            3A253034
+   \            58253034
+   \            58253034
+   \            58253034
+   \            580D0A00
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "Self_Nwk:%04X  ">`:
+   \   000000   53656C66     DB "Self_Nwk:%04X  "
+   \            5F4E776B
+   \            3A253034
+   \            58202000
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "Self_Mac:%04X%04X%04X...">`:
+   \   000000   53656C66     DB "Self_Mac:%04X%04X%04X%04X\015\012"
+   \            5F4D6163
+   \            3A253034
+   \            58253034
+   \            58253034
+   \            58253034
+   \            580D0A00
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "DEV:%s\\r\\n">`:
+   \   000000   4445563A     DB "DEV:%s\015\012"
+   \            25730D0A
+   \            00      
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "\\r\\n">`:
+   \   000000   0D0A00       DB "\015\012"
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "New Device Join">`:
+   \   000000   4E657720     DB "New Device Join"
+   \            44657669
+   \            6365204A
+   \            6F696E00
+
+   Maximum stack usage in bytes:
+
+   ISTACK XSTACK Function
+   ------ ------ --------
+      1     42   user_send_data
+        0     33   -> AF_DataRequest
+        0     24   -> strlen
+      0     29   user_show_info
+        0     12   -> NLME_GetCoordExtAddr
+        0     12   -> NLME_GetCoordShortAddr
+        0     12   -> NLME_GetExtAddr
+        0     12   -> NLME_GetShortAddr
+        0     14   -> printf
+        0     20   -> printf
+      0     11   user_state_change
+        0     11   -> printf
+        0      9   -> printf
+        0      9   -> user_send_data
+        0      9   -> user_show_info
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      15  ?<Constant "Channel:%02X\r\n">
+       9  ?<Constant "DEV:%s\r\n">
+      19  ?<Constant "DEV_COORD_STARTING">
+      15  ?<Constant "DEV_END_DEVICE">
+      22  ?<Constant "DEV_END_DEVICE_UNAUTH">
+       9  ?<Constant "DEV_HOLD">
+       9  ?<Constant "DEV_INIT">
+      13  ?<Constant "DEV_NWK_DISC">
+      16  ?<Constant "DEV_NWK_JOINING">
+      15  ?<Constant "DEV_NWK_ORPHAN">
+      15  ?<Constant "DEV_NWK_REJOIN">
+      11  ?<Constant "DEV_ROUTER">
+      13  ?<Constant "DEV_ZB_COORD">
+      28  ?<Constant "Fath_Mac:%04X%04X%04X...">
+      16  ?<Constant "Fath_Nwk:%04X  ">
+      16  ?<Constant "New Device Join">
+      16  ?<Constant "NwkPANID:%04X\r\n">
+      28  ?<Constant "Self_Mac:%04X%04X%04X...">
+      16  ?<Constant "Self_Nwk:%04X  ">
+       3  ?<Constant "\r\n">
+      22  ?<Initializer for devStates_str>
+       8  ?Subroutine0
+       6  ?Subroutine1
+      22  devStates_str
+       1  transID
+     119  user_send_data
+     192  user_show_info
+      78  user_state_change
+      18  -- Other
+
+ 
+ 403 bytes in segment BANKED_CODE
+  18 bytes in segment BANK_RELAYS
+  22 bytes in segment XDATA_I
+  22 bytes in segment XDATA_ID
+ 304 bytes in segment XDATA_ROM_C
+   1 byte  in segment XDATA_Z
+ 
+  40 bytes of CODE     memory
+ 304 bytes of CONST    memory
+ 403 bytes of HUGECODE memory
+  23 bytes of XDATA    memory
+
+Errors: none
+Warnings: none

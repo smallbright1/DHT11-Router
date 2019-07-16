@@ -1,0 +1,641 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V10.30.1.6000 for 8051               16/Jul/2019  19:15:50
+# Copyright 2004-2018 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for 8051
+#
+#    Core               =  plain
+#    Code model         =  banked
+#    Data model         =  large
+#    Calling convention =  xdata reentrant
+#    Constant location  =  data_rom
+#    Dptr setup         =  1,16
+#                          
+#    Source file        =  
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\Source\user_uart0.c
+#    Command line       =  
+#        -f C:\Users\Admin\AppData\Local\Temp\EWB96D.tmp
+#        (E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\Source\user_uart0.c
+#        -D NWK_AUTO_POLL -D ZTOOL_P1 -D MT_TASK -D MT_SYS_FUNC -D MT_ZDO_FUNC
+#        -D xLCD_SUPPORTED=DEBUG -D HAL_LCD=FALSE -D xPOWER_SAVING -lC
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\EndDeviceEB\List
+#        -lA
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\EndDeviceEB\List
+#        --diag_suppress Pe001,Pa010 -o
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\EndDeviceEB\Obj
+#        -e --debug --core=plain --dptr=16,1 --data_model=large
+#        --code_model=banked --calling_convention=xdata_reentrant
+#        --place_constants=data_rom --nr_virtual_regs 8 -f
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev.cfg
+#        (-DCPU32MHZ -DROOT=__near_func -DMAC_CFG_TX_DATA_MAX=3
+#        -DMAC_CFG_TX_MAX=6 -DMAC_CFG_RX_MAX=3) -f
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
+#        (-DZIGBEEPRO -DSECURE=0 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x00000800 -DZDAPP_CONFIG_PAN_ID=0xFFFF
+#        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
+#        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
+#        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
+#        -DAPSC_ACK_WAIT_DURATION_POLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7
+#        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
+#        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
+#        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
+#        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07,
+#        0x09, 0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C,
+#        0x0D}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+#        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE
+#        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100
+#        -DREJOIN_POLL_RATE=440) -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\Source\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\ZMain\TI2530DB\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\hal\include\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\mac\include\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\mac\high_level\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\mt\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\osal\include\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\services\saddr\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\services\sdata\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\stack\af\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\stack\nwk\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\stack\sapi\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\stack\sec\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\stack\sys\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\stack\zdo\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\zmac\
+#        -I
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\..\..\..\..\..\Components\zmac\f8w\
+#        -Ohz --require_prototypes --no_code_motion)
+#    Locale             =  Chinese (Simplified)_CHN.936
+#    List file          =  
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\EndDeviceEB\List\user_uart0.lst
+#    Object file        =  
+#        E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\CC2530DB\EndDeviceEB\Obj\user_uart0.r51
+#
+###############################################################################
+
+E:\GitHub\zjh\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\Source\user_uart0.c
+      1          #include "user_uart0.h"
+      2          #include "hal_uart.h"
+      3          #include "string.h"
+      4          //#include "user_printf.h"
+      5          #include "AF.h"
+      6          #include "ProjectApp.h"
+      7          #include "ZDProfile.h"
+      8          #include "user_printf.h"
+      9          
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     10          uint8 UART0_RX_BUFF[UART0_RX_BUFF_MAX];//接收缓存区
+   \                     UART0_RX_BUFF:
+   \   000000                DS 60
+   \   00003C                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     11          uint8 UART0_RX_STA = 0;                //接收状态标记
+   \                     UART0_RX_STA:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     12          uint8 UART0_RX_LEN = 0;                //接收数据长度
+   \                     UART0_RX_LEN:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+     13          //extern cId_t ProjectApp_ClusterList[PROJECTAPP_MAX_CLUSTERS];
+     14          extern const cId_t ProjectApp_ClusterList[PROJECTAPP_MAX_CLUSTERS];
+     15          extern byte ProjectApp_TransID;  // This is the unique message ID (counter)
+     16          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     17          void USER_Uart0_Init( uint8 baudRate )
+   \                     USER_Uart0_Init:
+     18          {
+   \   000000   74F7         MOV       A,#-0x9
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 29
+   \   000005   74E3         MOV       A,#-0x1d
+   \   000007   12....       LCALL     ?ALLOC_XSTACK8
+     19            halUARTCfg_t uartConfig;
+     20          
+     21            /* UART Configuration */
+     22            uartConfig.configured           = TRUE;
+   \   00000A   85..82       MOV       DPL,?XSP + 0
+   \   00000D   85..83       MOV       DPH,?XSP + 1
+   \   000010   7401         MOV       A,#0x1
+   \   000012   F0           MOVX      @DPTR,A
+     23            uartConfig.baudRate             = baudRate;
+   \   000013   12....       LCALL     ?XSTACK_DISP0_8
+   \   000016   E9           MOV       A,R1
+   \   000017   F0           MOVX      @DPTR,A
+     24            uartConfig.flowControl          = USER_UART_DEFAULT_OVERFLOW;
+   \   000018   7402         MOV       A,#0x2
+   \   00001A   12....       LCALL     ?XSTACK_DISP0_8
+   \   00001D   E4           CLR       A
+   \   00001E   F0           MOVX      @DPTR,A
+     25            uartConfig.flowControlThreshold = USER_UART_DEFAULT_THRESHOLD;
+   \   00001F   7403         MOV       A,#0x3
+   \   000021   12....       LCALL     ?XSTACK_DISP0_8
+   \   000024   7440         MOV       A,#0x40
+   \   000026   F0           MOVX      @DPTR,A
+   \   000027   A3           INC       DPTR
+   \   000028   E4           CLR       A
+   \   000029   F0           MOVX      @DPTR,A
+     26            uartConfig.rx.maxBufSize        = USER_UART_DEFAULT_MAX_RX_BUFF;
+   \   00002A   740A         MOV       A,#0xa
+   \   00002C   12....       LCALL     ?XSTACK_DISP0_8
+   \   00002F   7480         MOV       A,#-0x80
+   \   000031   F0           MOVX      @DPTR,A
+   \   000032   A3           INC       DPTR
+   \   000033   E4           CLR       A
+   \   000034   F0           MOVX      @DPTR,A
+     27            uartConfig.tx.maxBufSize        = USER_UART_DEFAULT_MAX_TX_BUFF;
+   \   000035   7412         MOV       A,#0x12
+   \   000037   12....       LCALL     ?XSTACK_DISP0_8
+   \   00003A   7480         MOV       A,#-0x80
+   \   00003C   F0           MOVX      @DPTR,A
+   \   00003D   A3           INC       DPTR
+   \   00003E   E4           CLR       A
+   \   00003F   F0           MOVX      @DPTR,A
+     28            uartConfig.idleTimeout          = USER_UART_DEFAULT_IDLE_TIMEOUT;
+   \   000040   7405         MOV       A,#0x5
+   \   000042   12....       LCALL     ?XSTACK_DISP0_8
+   \   000045   7406         MOV       A,#0x6
+   \   000047   F0           MOVX      @DPTR,A
+     29            uartConfig.intEnable            = TRUE;
+   \   000048   7416         MOV       A,#0x16
+   \   00004A   12....       LCALL     ?XSTACK_DISP0_8
+   \   00004D   7401         MOV       A,#0x1
+   \   00004F   F0           MOVX      @DPTR,A
+     30            uartConfig.callBackFunc         = Uart0_Process;
+   \   000050   741B         MOV       A,#0x1b
+   \   000052   12....       LCALL     ?XSTACK_DISP0_8
+   \   000055   74..         MOV       A,#`??Uart0_Process::?relay` & 0xff
+   \   000057   F0           MOVX      @DPTR,A
+   \   000058   A3           INC       DPTR
+   \   000059   74..         MOV       A,#(`??Uart0_Process::?relay` >> 8) & 0xff
+   \   00005B   F0           MOVX      @DPTR,A
+     31          
+     32            /* Start UART */
+     33            HalUARTOpen (USER_UART_DEFAULT_PORT, &uartConfig);
+   \   00005C                ; Setup parameters for call to function HalUARTOpen
+   \   00005C   AA..         MOV       R2,?XSP + 0
+   \   00005E   AB..         MOV       R3,?XSP + 1
+   \   000060   7900         MOV       R1,#0x0
+   \   000062   12....       LCALL     `??HalUARTOpen::?relay`; Banked call to: HalUARTOpen
+     34          }
+   \   000065   741D         MOV       A,#0x1d
+   \   000067   12....       LCALL     ?DEALLOC_XSTACK8
+   \   00006A   7F01         MOV       R7,#0x1
+   \   00006C   02....       LJMP      ?BANKED_LEAVE_XDATA
+     35          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     36          void Uart0_Process( uint8 port, uint8 event )
+   \                     Uart0_Process:
+     37          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000   74F6         MOV       A,#-0xa
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 1
+   \   000005   74FF         MOV       A,#-0x1
+   \   000007   12....       LCALL     ?ALLOC_XSTACK8
+   \   00000A   E9           MOV       A,R1
+   \   00000B   FE           MOV       R6,A
+     38            uint8 Res;
+     39            (void)event;  // Intentionally unreferenced parameter
+     40           
+     41            while (Hal_UART_RxBufLen(port))
+   \                     ??Uart0_Process_0:
+   \   00000C                ; Setup parameters for call to function Hal_UART_RxBufLen
+   \   00000C   EE           MOV       A,R6
+   \   00000D   F9           MOV       R1,A
+   \   00000E   12....       LCALL     `??Hal_UART_RxBufLen::?relay`; Banked call to: Hal_UART_RxBufLen
+   \   000011   EA           MOV       A,R2
+   \   000012   4B           ORL       A,R3
+   \   000013   6079         JZ        ??Uart0_Process_1
+     42            {
+     43              HalUARTRead (port, &Res, 1);//读取一个字节
+   \   000015                ; Setup parameters for call to function HalUARTRead
+   \   000015   7C01         MOV       R4,#0x1
+   \   000017   7D00         MOV       R5,#0x0
+   \   000019   AA..         MOV       R2,?XSP + 0
+   \   00001B   AB..         MOV       R3,?XSP + 1
+   \   00001D   EE           MOV       A,R6
+   \   00001E   F9           MOV       R1,A
+   \   00001F   12....       LCALL     `??HalUARTRead::?relay`; Banked call to: HalUARTRead
+     44              UART0_RX_BUFF[UART0_RX_STA&0x3F]=Res ;
+   \   000022   85..82       MOV       DPL,?XSP + 0
+   \   000025   85..83       MOV       DPH,?XSP + 1
+   \   000028   E0           MOVX      A,@DPTR
+   \   000029   C0E0         PUSH      A
+   \   00002B   90....       MOV       DPTR,#UART0_RX_STA
+   \   00002E   E0           MOVX      A,@DPTR
+   \   00002F   543F         ANL       A,#0x3f
+   \   000031   F8           MOV       R0,A
+   \   000032   74..         MOV       A,#UART0_RX_BUFF & 0xff
+   \   000034   28           ADD       A,R0
+   \   000035   F582         MOV       DPL,A
+   \   000037   E4           CLR       A
+   \   000038   34..         ADDC      A,#(UART0_RX_BUFF >> 8) & 0xff
+   \   00003A   F583         MOV       DPH,A
+   \   00003C   D0E0         POP       A
+   \   00003E   F0           MOVX      @DPTR,A
+     45              UART0_RX_STA++;
+   \   00003F   90....       MOV       DPTR,#UART0_RX_STA
+   \   000042   E0           MOVX      A,@DPTR
+   \   000043   04           INC       A
+   \   000044   F0           MOVX      @DPTR,A
+     46           
+     47              if((UART0_RX_STA&0x80)==0)//接收未完成
+   \   000045   A2E7         MOV       C,0xE0 /* A   */.7
+   \   000047   402F         JC        ??Uart0_Process_2
+     48              {
+     49                if(UART0_RX_STA&0x40)//前一个接收到的数据结束符的“前一半”
+   \   000049   A2E6         MOV       C,0xE0 /* A   */.6
+   \   00004B   85..82       MOV       DPL,?XSP + 0
+   \   00004E   85..83       MOV       DPH,?XSP + 1
+   \   000051   E0           MOVX      A,@DPTR
+   \   000052   5019         JNC       ??Uart0_Process_3
+     50                {
+     51                  if     (Res==0x0A)UART0_RX_STA |= 0x80;//接收完成了
+   \   000054   640A         XRL       A,#0xa
+   \   000056   7008         JNZ       ??Uart0_Process_4
+   \   000058   90....       MOV       DPTR,#UART0_RX_STA
+   \   00005B   E0           MOVX      A,@DPTR
+   \   00005C   D2E7         SETB      0xE0 /* A   */.7
+   \   00005E   8017         SJMP      ??Uart0_Process_5
+     52                  else if(Res!=0x0D)UART0_RX_STA &= 0xBF;//不是结束符，则将前半个结束符标志置0
+   \                     ??Uart0_Process_4:
+   \   000060   E0           MOVX      A,@DPTR
+   \   000061   640D         XRL       A,#0xd
+   \   000063   6013         JZ        ??Uart0_Process_2
+   \   000065   90....       MOV       DPTR,#UART0_RX_STA
+   \   000068   E0           MOVX      A,@DPTR
+   \   000069   C2E6         CLR       0xE0 /* A   */.6
+   \   00006B   800A         SJMP      ??Uart0_Process_5
+     53                }
+     54                else
+     55                {
+     56                  if(Res==0x0D)UART0_RX_STA |= 0x40;
+   \                     ??Uart0_Process_3:
+   \   00006D   640D         XRL       A,#0xd
+   \   00006F   7007         JNZ       ??Uart0_Process_2
+   \   000071   90....       MOV       DPTR,#UART0_RX_STA
+   \   000074   E0           MOVX      A,@DPTR
+   \   000075   D2E6         SETB      0xE0 /* A   */.6
+   \                     ??Uart0_Process_5:
+   \   000077   F0           MOVX      @DPTR,A
+     57                }
+     58              }
+     59           
+     60              if((UART0_RX_STA&0x80)==0x80)
+   \                     ??Uart0_Process_2:
+   \   000078   90....       MOV       DPTR,#UART0_RX_STA
+   \   00007B   E0           MOVX      A,@DPTR
+   \   00007C   A2E7         MOV       C,0xE0 /* A   */.7
+   \   00007E   508C         JNC       ??Uart0_Process_0
+     61              {
+     62                UART0_RX_LEN = (UART0_RX_STA&0x3F)-2;
+   \   000080   543F         ANL       A,#0x3f
+   \   000082   24FE         ADD       A,#-0x2
+   \   000084   90....       MOV       DPTR,#UART0_RX_LEN
+   \   000087   F0           MOVX      @DPTR,A
+     63                Uart0_Handle();
+   \   000088                ; Setup parameters for call to function Uart0_Handle
+   \   000088   12....       LCALL     `??Uart0_Handle::?relay`; Banked call to: Uart0_Handle
+     64                Uart0_Reset();
+   \   00008B                ; Setup parameters for call to function Uart0_Reset
+   \   00008B   12....       LCALL     `??Uart0_Reset::?relay`; Banked call to: Uart0_Reset
+     65                break;
+     66              }
+     67            }
+     68          }
+   \                     ??Uart0_Process_1:
+   \   00008E   7401         MOV       A,#0x1
+   \   000090   12....       LCALL     ?DEALLOC_XSTACK8
+   \   000093                REQUIRE ?Subroutine0
+   \   000093                ; // Fall through to label ?Subroutine0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   7F02         MOV       R7,#0x2
+   \   000002   02....       LJMP      ?BANKED_LEAVE_XDATA
+     69          
+     70          static void ProjectApp_SendBindcast( void )
+     71          {
+     72            char theMessageData[ ] = "Bind data\r\n";
+     73            
+     74            afAddrType_t ProjectApp_DstAddr;
+     75            ProjectApp_DstAddr.addrMode       = (afAddrMode_t)AddrNotPresent;
+     76            ProjectApp_DstAddr.endPoint       = 0;
+     77            ProjectApp_DstAddr.addr.shortAddr = 0;
+     78           
+     79            AF_DataRequest( &ProjectApp_DstAddr,
+     80                            &ProjectApp_epDesc,
+     81                            PROJECTAPP_CLUSTERID,
+     82                            (byte)osal_strlen( theMessageData ) + 1,
+     83                            (byte *)&theMessageData,
+     84                            &ProjectApp_TransID,
+     85                            AF_DISCV_ROUTE,
+     86                            AF_DEFAULT_RADIUS
+     87                          );
+     88          }
+     89          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     90          void Uart0_Handle(void)
+   \                     Uart0_Handle:
+     91          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000                REQUIRE ?V2
+   \   000000   74F5         MOV       A,#-0xb
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 11
+   \   000005                ; Auto size: 33
+   \   000005   74DF         MOV       A,#-0x21
+   \   000007   12....       LCALL     ?ALLOC_XSTACK8
+     92            if(strstr((const char*)UART0_RX_BUFF, "request binding"))
+   \   00000A                ; Setup parameters for call to function strstr
+   \   00000A   7C..         MOV       R4,#`?<Constant "request binding">` & 0xff
+   \   00000C   7D..         MOV       R5,#(`?<Constant "request binding">` >> 8) & 0xff
+   \   00000E   7A..         MOV       R2,#UART0_RX_BUFF & 0xff
+   \   000010   7B..         MOV       R3,#(UART0_RX_BUFF >> 8) & 0xff
+   \   000012   12....       LCALL     `??strstr::?relay`; Banked call to: strstr
+   \   000015   EA           MOV       A,R2
+   \   000016   4B           ORL       A,R3
+   \   000017   6066         JZ        ??Uart0_Handle_0
+     93            {
+     94              printf("Bind start!\r\n");
+   \   000019                ; Setup parameters for call to function printf
+   \   000019   7A..         MOV       R2,#`?<Constant "Bind start!\\r\\n">` & 0xff
+   \   00001B   7B..         MOV       R3,#(`?<Constant "Bind start!\\r\\n">` >> 8) & 0xff
+   \   00001D   12....       LCALL     `??printf::?relay`; Banked call to: printf
+     95              zAddrType_t dstAddr;
+     96              dstAddr.addrMode = Addr16Bit;
+   \   000020   7414         MOV       A,#0x14
+   \   000022   12....       LCALL     ?XSTACK_DISP0_8
+   \   000025   7402         MOV       A,#0x2
+   \   000027   F0           MOVX      @DPTR,A
+     97              dstAddr.addr.shortAddr = 0x0000; // Coordinator
+   \   000028   740C         MOV       A,#0xc
+   \   00002A   12....       LCALL     ?XSTACK_DISP0_8
+   \   00002D   E4           CLR       A
+   \   00002E   F0           MOVX      @DPTR,A
+   \   00002F   A3           INC       DPTR
+   \   000030   F0           MOVX      @DPTR,A
+     98              ZDP_EndDeviceBindReq( &dstAddr, NLME_GetShortAddr(),
+     99                                    ProjectApp_epDesc.endPoint,
+    100                                    PROJECTAPP_PROFID,
+    101                                    PROJECTAPP_MAX_CLUSTERS, (cId_t *)ProjectApp_ClusterList,
+    102                                    PROJECTAPP_MAX_CLUSTERS, (cId_t *)ProjectApp_ClusterList,
+    103                                    FALSE );
+   \   000031                ; Setup parameters for call to function NLME_GetShortAddr
+   \   000031   12....       LCALL     `??NLME_GetShortAddr::?relay`; Banked call to: NLME_GetShortAddr
+   \   000034   8A..         MOV       ?V0,R2
+   \   000036   8B..         MOV       ?V1,R3
+   \   000038   AC..         MOV       R4,?V0
+   \   00003A   AD..         MOV       R5,?V1
+   \   00003C   75....       MOV       ?V0,#ProjectApp_ClusterList & 0xff
+   \   00003F   75....       MOV       ?V1,#(ProjectApp_ClusterList >> 8) & 0xff
+   \   000042                ; Setup parameters for call to function ZDP_EndDeviceBindReq
+   \   000042   75..00       MOV       ?V2,#0x0
+   \   000045   78..         MOV       R0,#?V2
+   \   000047   12....       LCALL     ?PUSH_XSTACK_I_ONE
+   \   00004A   78..         MOV       R0,#?V0
+   \   00004C   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   00004F   75..01       MOV       ?V2,#0x1
+   \   000052   78..         MOV       R0,#?V2
+   \   000054   12....       LCALL     ?PUSH_XSTACK_I_ONE
+   \   000057   78..         MOV       R0,#?V0
+   \   000059   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   00005C   75..01       MOV       ?V0,#0x1
+   \   00005F   78..         MOV       R0,#?V0
+   \   000061   12....       LCALL     ?PUSH_XSTACK_I_ONE
+   \   000064   75..04       MOV       ?V0,#0x4
+   \   000067   75..0F       MOV       ?V1,#0xf
+   \   00006A   78..         MOV       R0,#?V0
+   \   00006C   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   00006F   90....       MOV       DPTR,#ProjectApp_epDesc
+   \   000072   E0           MOVX      A,@DPTR
+   \   000073   F9           MOV       R1,A
+   \   000074   7415         MOV       A,#0x15
+   \   000076   12....       LCALL     ?XSTACK_DISP101_8
+   \   000079   12....       LCALL     `??ZDP_EndDeviceBindReq::?relay`; Banked call to: ZDP_EndDeviceBindReq
+   \   00007C   02....       LJMP      ??Uart0_Handle_1 & 0xFFFF
+    104          
+    105            }
+    106            else if(strstr((const char*)UART0_RX_BUFF,"send binding"))
+   \                     ??Uart0_Handle_0:
+   \   00007F                ; Setup parameters for call to function strstr
+   \   00007F   7C..         MOV       R4,#`?<Constant "send binding">` & 0xff
+   \   000081   7D..         MOV       R5,#(`?<Constant "send binding">` >> 8) & 0xff
+   \   000083   7A..         MOV       R2,#UART0_RX_BUFF & 0xff
+   \   000085   7B..         MOV       R3,#(UART0_RX_BUFF >> 8) & 0xff
+   \   000087   12....       LCALL     `??strstr::?relay`; Banked call to: strstr
+   \   00008A   EA           MOV       A,R2
+   \   00008B   4B           ORL       A,R3
+   \   00008C   607A         JZ        ??Uart0_Handle_2
+    107            {
+    108                ProjectApp_SendBindcast();
+   \   00008E   90....       MOV       DPTR,#`?<Constant "Bind data\\r\\n">`
+   \   000091   7415         MOV       A,#0x15
+   \   000093   12....       LCALL     ?XSTACK_DISP102_8
+   \   000096   740C         MOV       A,#0xc
+   \   000098   12....       LCALL     ?MOVE_LONG8_XDATA_XDATA
+   \   00009B   7408         MOV       A,#0x8
+   \   00009D   12....       LCALL     ?XSTACK_DISP0_8
+   \   0000A0   E4           CLR       A
+   \   0000A1   F0           MOVX      @DPTR,A
+   \   0000A2   7409         MOV       A,#0x9
+   \   0000A4   12....       LCALL     ?XSTACK_DISP0_8
+   \   0000A7   E4           CLR       A
+   \   0000A8   F0           MOVX      @DPTR,A
+   \   0000A9   85..82       MOV       DPL,?XSP + 0
+   \   0000AC   85..83       MOV       DPH,?XSP + 1
+   \   0000AF   F0           MOVX      @DPTR,A
+   \   0000B0   A3           INC       DPTR
+   \   0000B1   F0           MOVX      @DPTR,A
+   \   0000B2                ; Setup parameters for call to function osal_strlen
+   \   0000B2   7415         MOV       A,#0x15
+   \   0000B4   12....       LCALL     ?XSTACK_DISP101_8
+   \   0000B7   12....       LCALL     `??osal_strlen::?relay`; Banked call to: osal_strlen
+   \   0000BA                ; Setup parameters for call to function AF_DataRequest
+   \   0000BA   75..1E       MOV       ?V0,#0x1e
+   \   0000BD   78..         MOV       R0,#?V0
+   \   0000BF   12....       LCALL     ?PUSH_XSTACK_I_ONE
+   \   0000C2   75....       MOV       ?V0,#ProjectApp_TransID & 0xff
+   \   0000C5   75....       MOV       ?V1,#(ProjectApp_TransID >> 8) & 0xff
+   \   0000C8   78..         MOV       R0,#?V0
+   \   0000CA   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   0000CD   7418         MOV       A,#0x18
+   \   0000CF   12....       LCALL     ?XSTACK_DISP100_8
+   \   0000D2   88..         MOV       ?V0,R0
+   \   0000D4   89..         MOV       ?V1,R1
+   \   0000D6   78..         MOV       R0,#?V0
+   \   0000D8   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   0000DB   EA           MOV       A,R2
+   \   0000DC   2401         ADD       A,#0x1
+   \   0000DE   F5..         MOV       ?V0,A
+   \   0000E0   E4           CLR       A
+   \   0000E1   3400         ADDC      A,#0x0
+   \   0000E3   F5..         MOV       ?V1,A
+   \   0000E5   78..         MOV       R0,#?V0
+   \   0000E7   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   0000EA   75..01       MOV       ?V0,#0x1
+   \   0000ED   75..00       MOV       ?V1,#0x0
+   \   0000F0   78..         MOV       R0,#?V0
+   \   0000F2   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   0000F5   7920         MOV       R1,#0x20
+   \   0000F7   7C..         MOV       R4,#ProjectApp_epDesc & 0xff
+   \   0000F9   7D..         MOV       R5,#(ProjectApp_epDesc >> 8) & 0xff
+   \   0000FB   7409         MOV       A,#0x9
+   \   0000FD   12....       LCALL     ?XSTACK_DISP101_8
+   \   000100   12....       LCALL     `??AF_DataRequest::?relay`; Banked call to: AF_DataRequest
+   \                     ??Uart0_Handle_1:
+   \   000103   7409         MOV       A,#0x9
+   \   000105   12....       LCALL     ?DEALLOC_XSTACK8
+    109            }
+    110          }
+   \                     ??Uart0_Handle_2:
+   \   000108   7421         MOV       A,#0x21
+   \   00010A   12....       LCALL     ?DEALLOC_XSTACK8
+   \   00010D   7F03         MOV       R7,#0x3
+   \   00010F   02....       LJMP      ?BANKED_LEAVE_XDATA
+    111          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    112          void Uart0_Reset(void)
+   \                     Uart0_Reset:
+    113          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000   74F6         MOV       A,#-0xa
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 0
+    114            memset(UART0_RX_BUFF,0,UART0_RX_BUFF_MAX);
+   \   000005                ; Setup parameters for call to function memset
+   \   000005   75..3C       MOV       ?V0,#0x3c
+   \   000008   75..00       MOV       ?V1,#0x0
+   \   00000B   78..         MOV       R0,#?V0
+   \   00000D   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   000010   7C00         MOV       R4,#0x0
+   \   000012   7D00         MOV       R5,#0x0
+   \   000014   7A..         MOV       R2,#UART0_RX_BUFF & 0xff
+   \   000016   7B..         MOV       R3,#(UART0_RX_BUFF >> 8) & 0xff
+   \   000018   12....       LCALL     `??memset::?relay`; Banked call to: memset
+   \   00001B   7402         MOV       A,#0x2
+   \   00001D   12....       LCALL     ?DEALLOC_XSTACK8
+    115            UART0_RX_STA = 0;
+   \   000020   90....       MOV       DPTR,#UART0_RX_STA
+   \   000023   E4           CLR       A
+   \   000024   F0           MOVX      @DPTR,A
+    116          }
+   \   000025   02....       LJMP      ?Subroutine0 & 0xFFFF
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "Bind data\\r\\n">`:
+   \   000000   42696E64     DB "Bind data\015\012"
+   \            20646174
+   \            610D0A00
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "request binding">`:
+   \   000000   72657175     DB "request binding"
+   \            65737420
+   \            62696E64
+   \            696E6700
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "Bind start!\\r\\n">`:
+   \   000000   42696E64     DB "Bind start!\015\012"
+   \            20737461
+   \            7274210D
+   \            0A00    
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "send binding">`:
+   \   000000   73656E64     DB "send binding"
+   \            2062696E
+   \            64696E67
+   \            00      
+
+   Maximum stack usage in bytes:
+
+   ISTACK XSTACK Function
+   ------ ------ --------
+      1     38   USER_Uart0_Init
+        0     38   -> HalUARTOpen
+      0     64   Uart0_Handle
+        0     53   -> AF_DataRequest
+        0     44   -> NLME_GetShortAddr
+        0     53   -> ZDP_EndDeviceBindReq
+        0     44   -> osal_strlen
+        0     44   -> printf
+        0     44   -> strstr
+      1     11   Uart0_Process
+        0     11   -> HalUARTRead
+        0     11   -> Hal_UART_RxBufLen
+        0     11   -> Uart0_Handle
+        0     11   -> Uart0_Reset
+      0     23   Uart0_Reset
+        0     12   -> memset
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      12  ?<Constant "Bind data\r\n">
+      14  ?<Constant "Bind start!\r\n">
+      16  ?<Constant "request binding">
+      13  ?<Constant "send binding">
+       5  ?Subroutine0
+      60  UART0_RX_BUFF
+       1  UART0_RX_LEN
+       1  UART0_RX_STA
+     111  USER_Uart0_Init
+     274  Uart0_Handle
+     147  Uart0_Process
+      40  Uart0_Reset
+      24  -- Other
+
+ 
+ 577 bytes in segment BANKED_CODE
+  24 bytes in segment BANK_RELAYS
+  55 bytes in segment XDATA_ROM_C
+  62 bytes in segment XDATA_Z
+ 
+  24 bytes of CODE     memory
+  55 bytes of CONST    memory
+ 577 bytes of HUGECODE memory
+  62 bytes of XDATA    memory
+
+Errors: none
+Warnings: none
