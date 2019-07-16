@@ -41,6 +41,10 @@
 /*********************************************************************
  * GLOBAL VARIABLES
  */
+#define LAMP_PIN     P0_5  //定义P0.5口为继电器输入端
+
+static uint8 GetLamp( void );
+
 // This list should be filled with Application specific Cluster IDs.
 const cId_t ProjectApp_ClusterList[PROJECTAPP_MAX_CLUSTERS] =
 {
@@ -401,21 +405,23 @@ static void ProjectApp_SendBindcast( void )
                 );
 }
 
-/*********************************************************************
- * LOCAL FUNCTIONS
- */
 
-/*********************************************************************
- * @fn      ProjectApp_MessageMSGCB
- *
- * @brief   Data message processor callback.  This function processes
- *          any incoming data - probably from other devices.  So, based
- *          on cluster ID, perform the intended action.
- *
- * @param   none
- *
- * @return  none
- */
+uint8 GetLamp( void )
+{
+  uint8 ret;
+  
+  if(LAMP_PIN == 0)
+  {
+    ret = 0;
+  }
+  else
+  {
+    ret = 1;
+  }
+  
+  return ret;
+}
+
 static void ProjectApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
 {
   switch ( pkt->clusterId )
