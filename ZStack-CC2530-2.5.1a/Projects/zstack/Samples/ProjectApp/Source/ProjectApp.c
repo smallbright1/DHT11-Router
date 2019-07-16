@@ -188,7 +188,7 @@ uint16 ProjectApp_ProcessEvent( uint8 task_id, uint16 events )
 {
   afIncomingMSGPacket_t *MSGpkt;
   afDataConfirm_t *afDataConfirm;
-
+  
   // Data Confirmation message fields
   byte sentEP;
   ZStatus_t sentStatus;
@@ -424,10 +424,38 @@ uint8 GetLamp( void )
 
 static void ProjectApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
 {
+  uint8 jidianqi;
+  jidianqi = GetLamp(); //jidianqid的状态 1为高电平 0 为低电平 低电平触发（0开 1关）
   switch ( pkt->clusterId )
   {
+     unsigned char buffer[3];
     case PROJECTAPP_CLUSTERID:
-      printf("%s\r\n", pkt->cmd.Data);
+      osal_memcpy(buffer,pkt->cmd.Data,2);//将接收到的数据复制到buffer区
+      HalUARTWrite(0, pkt->cmd.Data, pkt->cmd.DataLength); //输出接收到的数据
+      if(buffer[0] <= 3)
+      {
+        P0_5=1;
+      }
+      else if((buffer[0] <= 3) && jidianqi==0)
+      {
+        
+      }
+      else if(buffer[0] > 3 )
+      {
+        P0_5=0;
+      }
+      else if((buffer[0] > 3) && jidianqi==1)
+      {
+        
+      }
+      else if((strstr((const char *)UART0_RX_BUFF,"turn on fan"))&&jidianqi==1)
+      {
+        P0_5=0;
+      }
+      else if((strstr((const char*)UART0_RX_BUFF,"turn off fan"))&&jidianqi==0)
+      {
+        P0_5=1;
+      }
       break;
   }
 }

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V10.30.1.6000 for 8051              16/Jul/2019  23:03:13
+// IAR C/C++ Compiler V10.30.1.6000 for 8051              16/Jul/2019  23:26:19
 // Copyright 2004-2018 IAR Systems AB.
 // PC-locked license - IAR Embedded Workbench for 8051
 //
@@ -14,7 +14,7 @@
 //    Source file        =  
 //        E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\Source\ProjectApp.c
 //    Command line       =  
-//        -f C:\Users\Admin\AppData\Local\Temp\EWE88A.tmp
+//        -f C:\Users\Admin\AppData\Local\Temp\EWB3D.tmp
 //        (E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\Source\ProjectApp.c
 //        -D xZTOOL_P1 -D xMT_TASK -D xMT_SYS_FUNC -D xMT_ZDO_FUNC -D
 //        HAL_UART=TRUE -D xLCD_SUPPORTED=DEBUG -D HAL_LCD=FALSE -lC
@@ -118,14 +118,16 @@
         EXTERN ?V1
         EXTERN ?V2
         EXTERN ?V3
+        EXTERN ?V4
+        EXTERN ?V5
         EXTERN ?ALLOC_XSTACK8
         EXTERN ?BANKED_ENTER_XDATA
         EXTERN ?BANKED_LEAVE_XDATA
         EXTERN ?BDISPATCH
         EXTERN ?DEALLOC_XSTACK8
         EXTERN ?MOVE_LONG8_XDATA_XDATA
-        EXTERN ?PUSH_XSTACK8_X_TWO
         EXTERN ?PUSH_XSTACK_I_ONE
+        EXTERN ?PUSH_XSTACK_I_THREE
         EXTERN ?PUSH_XSTACK_I_TWO
         EXTERN ?XSP
         EXTERN ?XSTACK_DISP0_8
@@ -137,6 +139,7 @@
         FUNCTION `??ProjectApp_HandleKeys::?relay`,0203H
         PUBLIC `??ProjectApp_Init::?relay`
         FUNCTION `??ProjectApp_Init::?relay`,0203H
+        FUNCTION `??ProjectApp_MessageMSGCB::?relay`,0203H
         PUBLIC `??ProjectApp_ProcessEvent::?relay`
         FUNCTION `??ProjectApp_ProcessEvent::?relay`,0203H
         PUBLIC ProjectApp_ClusterList
@@ -150,6 +153,11 @@
         FUNCTION ProjectApp_Init,021203H
         ARGFRAME XSTACK, 0, STACK
         LOCFRAME XSTACK, 9, STACK
+        FUNCTION ProjectApp_MessageMSGCB,0a1203H
+        ARGFRAME XSTACK, 24, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME XSTACK, 20, STACK
         PUBLIC ProjectApp_NwkState
         PUBLIC ProjectApp_ProcessEvent
         FUNCTION ProjectApp_ProcessEvent,0a1203H
@@ -159,6 +167,7 @@
         PUBLIC ProjectApp_TaskID
         PUBLIC ProjectApp_TransID
         PUBLIC ProjectApp_epDesc
+        PUBWEAK _A_P0
         
           CFI Names cfiNames0
           CFI StackFrame CFA_SP SP IDATA
@@ -302,6 +311,8 @@ AF_DataRequest      SYMBOL "AF_DataRequest"
 `??AF_DataRequest::?relay` SYMBOL "?relay", AF_DataRequest
 HalLedSet           SYMBOL "HalLedSet"
 `??HalLedSet::?relay` SYMBOL "?relay", HalLedSet
+HalUARTWrite        SYMBOL "HalUARTWrite"
+`??HalUARTWrite::?relay` SYMBOL "?relay", HalUARTWrite
 NLME_GetShortAddr   SYMBOL "NLME_GetShortAddr"
 `??NLME_GetShortAddr::?relay` SYMBOL "?relay", NLME_GetShortAddr
 RegisterForKeys     SYMBOL "RegisterForKeys"
@@ -316,6 +327,8 @@ ZDP_MatchDescReq    SYMBOL "ZDP_MatchDescReq"
 `??ZDP_MatchDescReq::?relay` SYMBOL "?relay", ZDP_MatchDescReq
 afRegister          SYMBOL "afRegister"
 `??afRegister::?relay` SYMBOL "?relay", afRegister
+osal_memcpy         SYMBOL "osal_memcpy"
+`??osal_memcpy::?relay` SYMBOL "?relay", osal_memcpy
 osal_msg_deallocate SYMBOL "osal_msg_deallocate"
 `??osal_msg_deallocate::?relay` SYMBOL "?relay", osal_msg_deallocate
 osal_msg_receive    SYMBOL "osal_msg_receive"
@@ -337,6 +350,8 @@ ProjectApp_ProcessEvent SYMBOL "ProjectApp_ProcessEvent"
         FUNCTION `??AF_DataRequest::?relay`,00H
         EXTERN `??HalLedSet::?relay`
         FUNCTION `??HalLedSet::?relay`,00H
+        EXTERN `??HalUARTWrite::?relay`
+        FUNCTION `??HalUARTWrite::?relay`,00H
         EXTERN `??NLME_GetShortAddr::?relay`
         FUNCTION `??NLME_GetShortAddr::?relay`,00H
         EXTERN `??RegisterForKeys::?relay`
@@ -351,6 +366,8 @@ ProjectApp_ProcessEvent SYMBOL "ProjectApp_ProcessEvent"
         FUNCTION `??ZDP_MatchDescReq::?relay`,00H
         EXTERN `??afRegister::?relay`
         FUNCTION `??afRegister::?relay`,00H
+        EXTERN `??osal_memcpy::?relay`
+        FUNCTION `??osal_memcpy::?relay`,00H
         EXTERN `??osal_msg_deallocate::?relay`
         FUNCTION `??osal_msg_deallocate::?relay`,00H
         EXTERN `??osal_msg_receive::?relay`
@@ -375,6 +392,13 @@ ProjectApp_ProcessEvent SYMBOL "ProjectApp_ProcessEvent"
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
         ARGFRAME XSTACK, 32, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN HalUARTWrite
+        FUNCTION HalUARTWrite,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 17, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         EXTERN NLME_GetShortAddr
@@ -426,6 +450,13 @@ ProjectApp_ProcessEvent SYMBOL "ProjectApp_ProcessEvent"
         ARGFRAME XSTACK, 9, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN osal_memcpy
+        FUNCTION osal_memcpy,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 20, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
         EXTERN osal_msg_deallocate
         FUNCTION osal_msg_deallocate,0202H
         ARGFRAME ISTACK, 0, STACK
@@ -458,7 +489,7 @@ ProjectApp_ProcessEvent SYMBOL "ProjectApp_ProcessEvent"
         FUNCTION printf,0202H
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 26, STACK
+        ARGFRAME XSTACK, 24, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         EXTERN user_state_change
@@ -482,6 +513,12 @@ ProjectApp_ProcessEvent SYMBOL "ProjectApp_ProcessEvent"
 //   10 
 //   11 #if !defined( WIN32 )
 //   12   #include "OnBoard.h"
+
+        ASEGN SFR_AN:DATA:NOROOT,080H
+// union <unnamed> volatile __sfr _A_P0
+_A_P0:
+        DATA8
+        DS 1
 //   13 #endif
 //   14 
 //   15 /* HAL */
@@ -757,13 +794,13 @@ ProjectApp_Init:
 //  137   // If the hardware is other parts of the device add it in main().
 //  138 
 //  139   ProjectApp_DstAddr.addrMode = (afAddrMode_t)AddrNotPresent;
-        LCALL     ?Subroutine0 & 0xFFFF
+        LCALL     ?Subroutine1 & 0xFFFF
 //  140   ProjectApp_DstAddr.endPoint = 0;
 //  141   ProjectApp_DstAddr.addr.shortAddr = 0;
 //  142 
 //  143   // Fill out the endpoint description.
 //  144   ProjectApp_epDesc.endPoint = PROJECTAPP_ENDPOINT;
-??CrossCallReturnLabel_0:
+??CrossCallReturnLabel_2:
         MOV       DPTR,#ProjectApp_epDesc
         MOV       A,#0xa
         MOVX      @DPTR,A
@@ -809,12 +846,12 @@ ProjectApp_Init:
 //  160 
 //  161   ZDO_RegisterForZDOMsg( ProjectApp_TaskID, End_Device_Bind_rsp );
         ; Setup parameters for call to function ZDO_RegisterForZDOMsg
-        LCALL     ?Subroutine1 & 0xFFFF
+        LCALL     ?Subroutine2 & 0xFFFF
 //  162   ZDO_RegisterForZDOMsg( ProjectApp_TaskID, Match_Desc_rsp );
-??CrossCallReturnLabel_2:
+??CrossCallReturnLabel_6:
         ; Setup parameters for call to function ZDO_RegisterForZDOMsg
         MOV       R2,#0x6
-        LCALL     ??Subroutine2_0 & 0xFFFF
+        LCALL     ??Subroutine4_0 & 0xFFFF
 //  163 
 //  164 #if defined( IAR_ARMCM3_LM )
 //  165   // Register this task with RTOS task initiator
@@ -822,25 +859,25 @@ ProjectApp_Init:
 //  167 #endif
 //  168   
 //  169    USER_Uart0_Init(HAL_UART_BR_115200);
-??CrossCallReturnLabel_4:
+??CrossCallReturnLabel_8:
         ; Setup parameters for call to function USER_Uart0_Init
         MOV       R1,#0x4
         LCALL     `??USER_Uart0_Init::?relay`; Banked call to: USER_Uart0_Init
 //  170    
 //  171 ZDO_RegisterForZDOMsg( ProjectApp_TaskID, End_Device_Bind_rsp );
         ; Setup parameters for call to function ZDO_RegisterForZDOMsg
-        LCALL     ?Subroutine1 & 0xFFFF
+        LCALL     ?Subroutine2 & 0xFFFF
 //  172 }
-??CrossCallReturnLabel_3:
+??CrossCallReturnLabel_7:
         MOV       R7,#0x1
         LJMP      ?BANKED_LEAVE_XDATA
           CFI EndBlock cfiBlock0
 
         RSEG BANKED_CODE:HUGECODE:NOROOT(0)
-?Subroutine1:
+?Subroutine2:
           CFI Block cfiCond1 Using cfiCommon0
           CFI Function ProjectApp_Init
-          CFI Conditional ??CrossCallReturnLabel_2
+          CFI Conditional ??CrossCallReturnLabel_6
           CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
           CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
           CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
@@ -854,7 +891,7 @@ ProjectApp_Init:
           CFI CFA_XSP16 add(XSP16, 9)
           CFI Block cfiCond2 Using cfiCommon0
           CFI (cfiCond2) Function ProjectApp_Init
-          CFI (cfiCond2) Conditional ??CrossCallReturnLabel_3
+          CFI (cfiCond2) Conditional ??CrossCallReturnLabel_7
           CFI (cfiCond2) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
           CFI (cfiCond2) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
           CFI (cfiCond2) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
@@ -873,14 +910,14 @@ ProjectApp_Init:
           CFI EndBlock cfiCond1
           CFI EndBlock cfiCond2
           CFI EndBlock cfiPicker3
-        REQUIRE ??Subroutine2_0
-        ; // Fall through to label ??Subroutine2_0
+        REQUIRE ??Subroutine4_0
+        ; // Fall through to label ??Subroutine4_0
 
         RSEG BANKED_CODE:HUGECODE:NOROOT(0)
-??Subroutine2_0:
+??Subroutine4_0:
           CFI Block cfiCond4 Using cfiCommon0
           CFI Function ProjectApp_Init
-          CFI Conditional ??CrossCallReturnLabel_4
+          CFI Conditional ??CrossCallReturnLabel_8
           CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
           CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
           CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
@@ -894,7 +931,7 @@ ProjectApp_Init:
           CFI CFA_XSP16 add(XSP16, 9)
           CFI Block cfiCond5 Using cfiCommon0
           CFI (cfiCond5) Function ProjectApp_Init
-          CFI (cfiCond5) Conditional ??CrossCallReturnLabel_2
+          CFI (cfiCond5) Conditional ??CrossCallReturnLabel_6
           CFI (cfiCond5) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
           CFI (cfiCond5) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
           CFI (cfiCond5) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
@@ -908,7 +945,7 @@ ProjectApp_Init:
           CFI (cfiCond5) CFA_XSP16 add(XSP16, 9)
           CFI Block cfiCond6 Using cfiCommon0
           CFI (cfiCond6) Function ProjectApp_Init
-          CFI (cfiCond6) Conditional ??CrossCallReturnLabel_3
+          CFI (cfiCond6) Conditional ??CrossCallReturnLabel_7
           CFI (cfiCond6) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
           CFI (cfiCond6) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
           CFI (cfiCond6) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
@@ -1032,15 +1069,15 @@ ProjectApp_ProcessEvent:
         ARGFRAME XSTACK, 24, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL ProjectApp_ProcessEvent, printf
+        FUNCALL ProjectApp_ProcessEvent, ProjectApp_MessageMSGCB
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 26, STACK
+        LOCFRAME XSTACK, 24, STACK
         LOCFRAME IOVERLAY, 0, STATIC
         LOCFRAME DOVERLAY, 0, STATIC
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 26, STACK
+        ARGFRAME XSTACK, 24, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL ProjectApp_ProcessEvent, osal_strlen
@@ -1101,11 +1138,13 @@ ProjectApp_ProcessEvent:
         MOV       A,#-0xc
         LCALL     ?ALLOC_XSTACK8
           CFI CFA_XSP16 add(XSP16, 24)
-        MOV       ?V0,R2
-        MOV       ?V1,R3
+        MOV       A,R2
+        MOV       R6,A
+        MOV       A,R3
+        MOV       R7,A
 //  189   afIncomingMSGPacket_t *MSGpkt;
 //  190   afDataConfirm_t *afDataConfirm;
-//  191 
+//  191   
 //  192   // Data Confirmation message fields
 //  193   byte sentEP;
 //  194   ZStatus_t sentStatus;
@@ -1113,7 +1152,6 @@ ProjectApp_ProcessEvent:
 //  196   (void)task_id;  // Intentionally unreferenced parameter
 //  197 
 //  198   if ( events & SYS_EVENT_MSG )
-        MOV       A,R3
         ANL       A,#0x80
         JNZ       $+5
         LJMP      ??ProjectApp_ProcessEvent_0 & 0xFFFF
@@ -1173,10 +1211,8 @@ ProjectApp_ProcessEvent:
 //  244       osal_msg_deallocate( (uint8 *)MSGpkt );
 ??ProjectApp_ProcessEvent_3:
         ; Setup parameters for call to function osal_msg_deallocate
-        MOV       A,R6
-        MOV       R2,A
-        MOV       A,R7
-        MOV       R3,A
+        MOV       R2,?V0
+        MOV       R3,?V1
         LCALL     `??osal_msg_deallocate::?relay`; Banked call to: osal_msg_deallocate
 //  245 
 //  246       // Next
@@ -1187,16 +1223,13 @@ ProjectApp_ProcessEvent:
         MOVX      A,@DPTR
         MOV       R1,A
         LCALL     `??osal_msg_receive::?relay`; Banked call to: osal_msg_receive
-        MOV       ?V2,R2
-        MOV       ?V3,R3
-        MOV       R6,?V2
-        MOV       R7,?V3
-        MOV       A,R6
-        ORL       A,R7
-        JNZ       $+5
-        LJMP      ??ProjectApp_ProcessEvent_4 & 0xFFFF
-        MOV       DPL,R6
-        MOV       DPH,R7
+        MOV       ?V0,R2
+        MOV       ?V1,R3
+        MOV       A,?V0
+        ORL       A,?V1
+        JZ        ??ProjectApp_ProcessEvent_4
+        MOV       DPL,?V0
+        MOV       DPH,?V1
         MOVX      A,@DPTR
         ADD       A,#-0x1a
         JZ        ??ProjectApp_ProcessEvent_5
@@ -1206,11 +1239,11 @@ ProjectApp_ProcessEvent:
         JZ        ??ProjectApp_ProcessEvent_2
         ADD       A,#-0x2
         JNZ       ??ProjectApp_ProcessEvent_3
-        MOV       A,R6
+        MOV       A,?V0
         ADD       A,#0xc
         MOV       DPL,A
         CLR       A
-        ADDC      A,R7
+        ADDC      A,?V1
         MOV       DPH,A
         MOVX      A,@DPTR
         XRL       A,#0x20
@@ -1220,11 +1253,11 @@ ProjectApp_ProcessEvent:
         XRL       A,#0x80
 ??ProjectApp_ProcessEvent_7:
         JNZ       ??ProjectApp_ProcessEvent_3
-        MOV       A,R6
+        MOV       A,?V0
         ADD       A,#0x13
         MOV       DPL,A
         CLR       A
-        ADDC      A,R7
+        ADDC      A,?V1
         MOV       DPH,A
         MOVX      A,@DPTR
         MOV       R0,A
@@ -1252,8 +1285,8 @@ ProjectApp_ProcessEvent:
         INC       DPTR
         MOVX      A,@DPTR
         MOV       R2,A
-        MOV       DPL,R6
-        MOV       DPH,R7
+        MOV       DPL,?V0
+        MOV       DPH,?V1
         INC       DPTR
         INC       DPTR
         MOVX      A,@DPTR
@@ -1261,44 +1294,21 @@ ProjectApp_ProcessEvent:
         LCALL     `??ProjectApp_HandleKeys::?relay`; Banked call to: ProjectApp_HandleKeys
         SJMP      ??ProjectApp_ProcessEvent_3
 ??ProjectApp_ProcessEvent_5:
-        INC       DPTR
-        INC       DPTR
-        INC       DPTR
-        INC       DPTR
-        MOVX      A,@DPTR
-        XRL       A,#0x1
-        JNZ       ??ProjectApp_ProcessEvent_10
-        INC       DPTR
-        MOVX      A,@DPTR
-??ProjectApp_ProcessEvent_10:
-        JZ        $+5
-        LJMP      ??ProjectApp_ProcessEvent_3 & 0xFFFF
-        ; Setup parameters for call to function printf
-        MOV       A,R6
-        ADD       A,#0x22
-        MOV       DPL,A
-        CLR       A
-        ADDC      A,R7
-        MOV       DPH,A
-        LCALL     ?PUSH_XSTACK8_X_TWO
-          CFI CFA_XSP16 add(XSP16, 26)
-        MOV       R2,#`?<Constant "%s\\r\\n">` & 0xff
-        MOV       R3,#(`?<Constant "%s\\r\\n">` >> 8) & 0xff
-        LCALL     `??printf::?relay`; Banked call to: printf
-        MOV       A,#0x2
-        LCALL     ?DEALLOC_XSTACK8
-          CFI CFA_XSP16 add(XSP16, 24)
+        ; Setup parameters for call to function ProjectApp_MessageMSGCB
+        MOV       R2,?V0
+        MOV       R3,?V1
+        LCALL     `??ProjectApp_MessageMSGCB::?relay`; Banked call to: ProjectApp_MessageMSGCB
         LJMP      ??ProjectApp_ProcessEvent_3 & 0xFFFF
 //  248     }
 //  249 
 //  250     // return unprocessed events
 //  251     return (events ^ SYS_EVENT_MSG);
 ??ProjectApp_ProcessEvent_4:
-        MOV       R2,?V0
-        MOV       A,?V1
+        MOV       A,R6
+        MOV       R2,A
+        MOV       A,R7
         XRL       A,#0x80
-        MOV       R3,A
-        LJMP      ??ProjectApp_ProcessEvent_11 & 0xFFFF
+        SJMP      ??ProjectApp_ProcessEvent_10
 //  252   }
 //  253 
 //  254   // Send a message out - This event is generated by a timer
@@ -1307,7 +1317,7 @@ ProjectApp_ProcessEvent:
 ??ProjectApp_ProcessEvent_0:
         MOV       A,R2
         MOV       C,0xE0 /* A   */.0
-        JNC       ??ProjectApp_ProcessEvent_12
+        JNC       ??ProjectApp_ProcessEvent_11
 //  257   {
 //  258     // Send "the" message
 //  259     ProjectApp_SendTheMessage();
@@ -1319,36 +1329,29 @@ ProjectApp_ProcessEvent:
         ; Setup parameters for call to function osal_strlen
         MOV       R2,?XSP + 0
         MOV       R3,?XSP + 1
-        LCALL     `??osal_strlen::?relay`; Banked call to: osal_strlen
-        ; Setup parameters for call to function AF_DataRequest
-        MOV       ?V2,#0x1e
-        MOV       R0,#?V2
+        LCALL     ?Subroutine3 & 0xFFFF
+??CrossCallReturnLabel_4:
         LCALL     ?PUSH_XSTACK_I_ONE
           CFI CFA_XSP16 add(XSP16, 25)
-        MOV       ?V2,#ProjectApp_TransID & 0xff
-        MOV       ?V3,#(ProjectApp_TransID >> 8) & 0xff
-        MOV       R0,#?V2
+        MOV       ?V0,#ProjectApp_TransID & 0xff
+        MOV       ?V1,#(ProjectApp_TransID >> 8) & 0xff
+        MOV       R0,#?V0
         LCALL     ?PUSH_XSTACK_I_TWO
           CFI CFA_XSP16 add(XSP16, 27)
         MOV       A,#0x3
         LCALL     ?XSTACK_DISP100_8
-        MOV       ?V2,R0
-        MOV       ?V3,R1
-        MOV       R0,#?V2
+        MOV       ?V0,R0
+        MOV       ?V1,R1
+        MOV       R0,#?V0
         LCALL     ?PUSH_XSTACK_I_TWO
           CFI CFA_XSP16 add(XSP16, 29)
-        MOV       A,R2
-        ADD       A,#0x1
-        MOV       ?V2,A
-        CLR       A
-        ADDC      A,#0x0
-        MOV       ?V3,A
-        MOV       R0,#?V2
+        LCALL     ?Subroutine0 & 0xFFFF
+??CrossCallReturnLabel_0:
         LCALL     ?PUSH_XSTACK_I_TWO
           CFI CFA_XSP16 add(XSP16, 31)
-        MOV       ?V2,#0x1
-        MOV       ?V3,#0x0
-        MOV       R0,#?V2
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       R0,#?V0
         LCALL     ?PUSH_XSTACK_I_TWO
           CFI CFA_XSP16 add(XSP16, 33)
         MOV       R1,#0x20
@@ -1377,11 +1380,13 @@ ProjectApp_ProcessEvent:
 //  265 
 //  266     // return unprocessed events
 //  267     return (events ^ PROJECTAPP_SEND_MSG_EVT);
-        MOV       A,?V0
+        MOV       A,R6
         XRL       A,#0x1
         MOV       R2,A
-        MOV       R3,?V1
-        SJMP      ??ProjectApp_ProcessEvent_11
+        MOV       A,R7
+??ProjectApp_ProcessEvent_10:
+        MOV       R3,A
+        SJMP      ??ProjectApp_ProcessEvent_12
 //  268   }
 //  269 
 //  270   
@@ -1399,10 +1404,10 @@ ProjectApp_ProcessEvent:
 //  282 
 //  283   // Discard unknown events
 //  284   return 0;
-??ProjectApp_ProcessEvent_12:
+??ProjectApp_ProcessEvent_11:
         MOV       R2,#0x0
         MOV       R3,#0x0
-??ProjectApp_ProcessEvent_11:
+??ProjectApp_ProcessEvent_12:
         MOV       A,#0xc
         LCALL     ?DEALLOC_XSTACK8
           CFI CFA_XSP16 add(XSP16, 12)
@@ -1569,15 +1574,13 @@ ProjectApp_HandleKeys:
         LCALL     ?XSTACK_DISP102_8
         MOV       A,#0xc
         LCALL     ?MOVE_LONG8_XDATA_XDATA
-        LCALL     ?Subroutine0 & 0xFFFF
-??CrossCallReturnLabel_1:
+        LCALL     ?Subroutine1 & 0xFFFF
+??CrossCallReturnLabel_3:
         ; Setup parameters for call to function osal_strlen
         MOV       A,#0x9
         LCALL     ?XSTACK_DISP101_8
-        LCALL     `??osal_strlen::?relay`; Banked call to: osal_strlen
-        ; Setup parameters for call to function AF_DataRequest
-        MOV       ?V0,#0x1e
-        MOV       R0,#?V0
+        LCALL     ?Subroutine3 & 0xFFFF
+??CrossCallReturnLabel_5:
         LCALL     ?PUSH_XSTACK_I_ONE
           CFI CFA_XSP16 add(XSP16, 33)
         MOV       ?V0,#ProjectApp_TransID & 0xff
@@ -1592,13 +1595,8 @@ ProjectApp_HandleKeys:
         MOV       R0,#?V0
         LCALL     ?PUSH_XSTACK_I_TWO
           CFI CFA_XSP16 add(XSP16, 37)
-        MOV       A,R2
-        ADD       A,#0x1
-        MOV       ?V0,A
-        CLR       A
-        ADDC      A,#0x0
-        MOV       ?V1,A
-        MOV       R0,#?V0
+        LCALL     ?Subroutine0 & 0xFFFF
+??CrossCallReturnLabel_1:
         LCALL     ?PUSH_XSTACK_I_TWO
           CFI CFA_XSP16 add(XSP16, 39)
         MOV       ?V0,#0x1
@@ -1775,13 +1773,16 @@ ProjectApp_HandleKeys:
           CFI EndBlock cfiBlock9
 
         RSEG BANKED_CODE:HUGECODE:NOROOT(0)
-?Subroutine0:
+?Subroutine3:
           CFI Block cfiCond10 Using cfiCommon0
-          CFI Function ProjectApp_Init
-          CFI Conditional ??CrossCallReturnLabel_0
-          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
-          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
-          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI Function ProjectApp_ProcessEvent
+          CFI Conditional ??CrossCallReturnLabel_4
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
           CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
           CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
           CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
@@ -1789,10 +1790,10 @@ ProjectApp_HandleKeys:
           CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
           CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
           CFI CFA_SP SP+-2
-          CFI CFA_XSP16 add(XSP16, 9)
+          CFI CFA_XSP16 add(XSP16, 24)
           CFI Block cfiCond11 Using cfiCommon0
           CFI (cfiCond11) Function ProjectApp_HandleKeys
-          CFI (cfiCond11) Conditional ??CrossCallReturnLabel_1
+          CFI (cfiCond11) Conditional ??CrossCallReturnLabel_5
           CFI (cfiCond11) R6 load(1, XDATA, add(CFA_XSP16, literal(-11)))
           CFI (cfiCond11) VB load(1, XDATA, add(CFA_XSP16, literal(-10)))
           CFI (cfiCond11) V0 load(1, XDATA, add(CFA_XSP16, literal(-9)))
@@ -1809,6 +1810,51 @@ ProjectApp_HandleKeys:
           CFI Block cfiPicker12 Using cfiCommon1
           CFI (cfiPicker12) NoFunction
           CFI (cfiPicker12) Picker
+        LCALL     `??osal_strlen::?relay`; Banked call to: osal_strlen
+        ; Setup parameters for call to function AF_DataRequest
+        ; Setup parameters for call to function AF_DataRequest
+        MOV       ?V0,#0x1e
+        MOV       R0,#?V0
+        RET
+          CFI EndBlock cfiCond10
+          CFI EndBlock cfiCond11
+          CFI EndBlock cfiPicker12
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine1:
+          CFI Block cfiCond13 Using cfiCommon0
+          CFI Function ProjectApp_Init
+          CFI Conditional ??CrossCallReturnLabel_2
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI CFA_SP SP+-2
+          CFI CFA_XSP16 add(XSP16, 9)
+          CFI Block cfiCond14 Using cfiCommon0
+          CFI (cfiCond14) Function ProjectApp_HandleKeys
+          CFI (cfiCond14) Conditional ??CrossCallReturnLabel_3
+          CFI (cfiCond14) R6 load(1, XDATA, add(CFA_XSP16, literal(-11)))
+          CFI (cfiCond14) VB load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI (cfiCond14) V0 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond14) V1 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond14) V2 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond14) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond14) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond14) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond14) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond14) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond14) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond14) CFA_SP SP+-2
+          CFI (cfiCond14) CFA_XSP16 add(XSP16, 32)
+          CFI Block cfiPicker15 Using cfiCommon1
+          CFI (cfiPicker15) NoFunction
+          CFI (cfiPicker15) Picker
         MOV       DPTR,#ProjectApp_DstAddr + 8
         MOVX      @DPTR,A
         INC       DPTR
@@ -1818,57 +1864,59 @@ ProjectApp_HandleKeys:
         INC       DPTR
         MOVX      @DPTR,A
         RET
-          CFI EndBlock cfiCond10
-          CFI EndBlock cfiCond11
-          CFI EndBlock cfiPicker12
+          CFI EndBlock cfiCond13
+          CFI EndBlock cfiCond14
+          CFI EndBlock cfiPicker15
 
-        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
-`??ProjectApp_Init::?relay`:
-        CODE
-        LCALL   ?BDISPATCH
-        DATA24
-        DC24    ProjectApp_Init
-
-        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
-`??ProjectApp_ProcessEvent::?relay`:
-        CODE
-        LCALL   ?BDISPATCH
-        DATA24
-        DC24    ProjectApp_ProcessEvent
-
-        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
-`??ProjectApp_HandleKeys::?relay`:
-        CODE
-        LCALL   ?BDISPATCH
-        DATA24
-        DC24    ProjectApp_HandleKeys
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA8
-`?<Constant "Bind success!\\r\\n">`:
-        DB "Bind success!\015\012"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA8
-`?<Constant "Bind failure!\\r\\n">`:
-        DB "Bind failure!\015\012"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA8
-`?<Constant "Bind data\\r\\n">`:
-        DB "Bind data\015\012"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA8
-`?<Constant "%s\\r\\n">`:
-        DB "%s\015\012"
-
-        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
-        DATA8
-`?<Constant "Hello World">`:
-        DB "Hello World"
-
-        END
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine0:
+          CFI Block cfiCond16 Using cfiCommon0
+          CFI Function ProjectApp_ProcessEvent
+          CFI Conditional ??CrossCallReturnLabel_0
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI CFA_SP SP+-2
+          CFI CFA_XSP16 add(XSP16, 29)
+          CFI Block cfiCond17 Using cfiCommon0
+          CFI (cfiCond17) Function ProjectApp_HandleKeys
+          CFI (cfiCond17) Conditional ??CrossCallReturnLabel_1
+          CFI (cfiCond17) R6 load(1, XDATA, add(CFA_XSP16, literal(-11)))
+          CFI (cfiCond17) VB load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI (cfiCond17) V0 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond17) V1 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond17) V2 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond17) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond17) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond17) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond17) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond17) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond17) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond17) CFA_SP SP+-2
+          CFI (cfiCond17) CFA_XSP16 add(XSP16, 37)
+          CFI Block cfiPicker18 Using cfiCommon1
+          CFI (cfiPicker18) NoFunction
+          CFI (cfiPicker18) Picker
+        MOV       A,R2
+        ADD       A,#0x1
+        MOV       ?V0,A
+        CLR       A
+        ADDC      A,#0x0
+        MOV       ?V1,A
+        MOV       R0,#?V0
+        RET
+          CFI EndBlock cfiCond16
+          CFI EndBlock cfiCond17
+          CFI EndBlock cfiPicker18
 //  370 
 //  371 
 //  372 static void ProjectApp_ProcessZDOMsgs( zdoIncomingMsg_t *inMsg )//每次“绑定”状态发生改变，均会调用此函数
@@ -1924,98 +1972,325 @@ ProjectApp_HandleKeys:
 //  422   return ret;
 //  423 }
 //  424 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
 //  425 static void ProjectApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
+ProjectApp_MessageMSGCB:
+          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Function ProjectApp_MessageMSGCB
+        CODE
 //  426 {
-//  427   switch ( pkt->clusterId )
-//  428   {
-//  429     case PROJECTAPP_CLUSTERID:
-//  430       printf("%s\r\n", pkt->cmd.Data);
-//  431       break;
-//  432   }
-//  433 }
-//  434 
-//  435 /*********************************************************************
-//  436  * @fn      ProjectApp_SendTheMessage
-//  437  *
-//  438  * @brief   Send "the" message.
-//  439  *
-//  440  * @param   none
-//  441  *
-//  442  * @return  none
-//  443  */
-//  444 static void ProjectApp_SendTheMessage( void )
-//  445 {
-//  446   char theMessageData[] = "Hello World";
-//  447 
-//  448   if ( AF_DataRequest( &ProjectApp_DstAddr, &ProjectApp_epDesc,
-//  449                        PROJECTAPP_CLUSTERID,
-//  450                        (byte)osal_strlen( theMessageData ) + 1,
-//  451                        (byte *)&theMessageData,
-//  452                        &ProjectApp_TransID,
-//  453                        AF_DISCV_ROUTE, AF_DEFAULT_RADIUS ) == afStatus_SUCCESS )
-//  454   {
-//  455     // Successfully requested to be sent.
-//  456   }
-//  457   else
-//  458   {
-//  459     // Error occurred in request to send.
+        FUNCALL ProjectApp_MessageMSGCB, osal_memcpy
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 20, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 20, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL ProjectApp_MessageMSGCB, HalUARTWrite
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 17, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 17, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        REQUIRE ?V0
+        REQUIRE ?V1
+        REQUIRE ?V2
+        REQUIRE ?V4
+        REQUIRE ?V5
+        MOV       A,#-0xe
+        LCALL     ?BANKED_ENTER_XDATA
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI V5 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI V4 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-11)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-13)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-14)))
+          CFI CFA_SP SP+0
+          CFI CFA_XSP16 add(XSP16, 14)
+        ; Saved register size: 14
+        ; Auto size: 3
+        MOV       A,#-0x3
+        LCALL     ?ALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 17)
+        MOV       A,R2
+        MOV       R6,A
+        MOV       A,R3
+        MOV       R7,A
+//  427   uint8 jidianqi;
+//  428   jidianqi = GetLamp(); //jidianqid的状态 1为高电平 0 为低电平 低电平触发（0开 1关）
+        MOV       A,0x80
+//  429   switch ( pkt->clusterId )
+        MOV       DPL,R2
+        MOV       DPH,R3
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        MOVX      A,@DPTR
+        XRL       A,#0x1
+        JNZ       ??ProjectApp_MessageMSGCB_0
+        INC       DPTR
+        MOVX      A,@DPTR
+??ProjectApp_MessageMSGCB_0:
+        JNZ       ??ProjectApp_MessageMSGCB_1
+//  430   {
+//  431      unsigned char buffer[3];
+//  432     case PROJECTAPP_CLUSTERID:
+//  433       osal_memcpy(buffer,pkt->cmd.Data,2);//将接收到的数据复制到buffer区
+        MOV       A,R2
+        ADD       A,#0x22
+        MOV       ?V4,A
+        CLR       A
+        ADDC      A,R7
+        MOV       ?V5,A
+        ; Setup parameters for call to function osal_memcpy
+        MOV       DPL,?V4
+        MOV       DPH,A
+        MOVX      A,@DPTR
+        MOV       ?V0,A
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       ?V1,A
+        MOV       ?V2,#0x0
+        MOV       R0,#?V0
+        LCALL     ?PUSH_XSTACK_I_THREE
+          CFI CFA_XSP16 add(XSP16, 20)
+        MOV       R4,#0x2
+        MOV       R5,#0x0
+        MOV       A,#0x3
+        LCALL     ?XSTACK_DISP101_8
+        LCALL     `??osal_memcpy::?relay`; Banked call to: osal_memcpy
+        MOV       A,#0x3
+        LCALL     ?DEALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 17)
+//  434       HalUARTWrite(0, pkt->cmd.Data, pkt->cmd.DataLength); //输出接收到的数据
+        ; Setup parameters for call to function HalUARTWrite
+        MOV       A,R6
+        ADD       A,#0x20
+        MOV       DPL,A
+        CLR       A
+        ADDC      A,R7
+        MOV       DPH,A
+        MOVX      A,@DPTR
+        MOV       R4,A
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       R5,A
+        MOV       DPL,?V4
+        MOV       DPH,?V5
+        MOVX      A,@DPTR
+        MOV       R2,A
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       R3,A
+        MOV       R1,#0x0
+        LCALL     `??HalUARTWrite::?relay`; Banked call to: HalUARTWrite
+//  435       if(buffer[0] <= 3)
+        MOV       DPL,?XSP + 0
+        MOV       DPH,?XSP + 1
+        MOVX      A,@DPTR
+        CLR       C
+        SUBB      A,#0x4
+        JC        ??ProjectApp_MessageMSGCB_2
+//  436       {
+//  437         P0_5=1;
+//  438       }
+//  439       else if((buffer[0] <= 3) && jidianqi==0)
+//  440       {
+//  441         
+//  442       }
+//  443       else if(buffer[0] > 3 )
+//  444       {
+//  445         P0_5=0;
+//  446       }
+//  447       else if((buffer[0] > 3) && jidianqi==1)
+//  448       {
+//  449         
+//  450       }
+//  451       else if((strstr((const char *)UART0_RX_BUFF,"turn on fan"))&&jidianqi==1)
+//  452       {
+//  453         P0_5=0;
+        CLR       0x80.5
+        SJMP      ??ProjectApp_MessageMSGCB_1
+//  454       }
+//  455       else if((strstr((const char*)UART0_RX_BUFF,"turn off fan"))&&jidianqi==0)
+//  456       {
+//  457         P0_5=1;
+??ProjectApp_MessageMSGCB_2:
+        SETB      0x80.5
+//  458       }
+//  459       break;
 //  460   }
 //  461 }
+??ProjectApp_MessageMSGCB_1:
+        MOV       A,#0x3
+        LCALL     ?DEALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 14)
+        MOV       R7,#0x6
+        LJMP      ?BANKED_LEAVE_XDATA
+          CFI EndBlock cfiBlock19
+        REQUIRE _A_P0
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??ProjectApp_Init::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    ProjectApp_Init
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??ProjectApp_ProcessEvent::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    ProjectApp_ProcessEvent
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??ProjectApp_HandleKeys::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    ProjectApp_HandleKeys
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??ProjectApp_MessageMSGCB::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    ProjectApp_MessageMSGCB
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA8
+`?<Constant "Bind success!\\r\\n">`:
+        DB "Bind success!\015\012"
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA8
+`?<Constant "Bind failure!\\r\\n">`:
+        DB "Bind failure!\015\012"
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA8
+`?<Constant "Bind data\\r\\n">`:
+        DB "Bind data\015\012"
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA8
+        DB "turn on fan"
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA8
+        DB "turn off fan"
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA8
+`?<Constant "Hello World">`:
+        DB "Hello World"
+
+        END
 //  462 
-//  463 #if defined( IAR_ARMCM3_LM )
-//  464 /*********************************************************************
-//  465  * @fn      ProjectApp_ProcessRtosMessage
-//  466  *
-//  467  * @brief   Receive message from RTOS queue, send response back.
-//  468  *
-//  469  * @param   none
-//  470  *
-//  471  * @return  none
-//  472  */
-//  473 static void ProjectApp_ProcessRtosMessage( void )
-//  474 {
-//  475   osalQueue_t inMsg;
-//  476 
-//  477   if ( osal_queue_receive( OsalQueue, &inMsg, 0 ) == pdPASS )
-//  478   {
-//  479     uint8 cmndId = inMsg.cmnd;
-//  480     uint32 counter = osal_build_uint32( inMsg.cbuf, 4 );
-//  481 
-//  482     switch ( cmndId )
-//  483     {
-//  484       case CMD_INCR:
-//  485         counter += 1;  /* Increment the incoming counter */
-//  486                        /* Intentionally fall through next case */
-//  487 
-//  488       case CMD_ECHO:
-//  489       {
-//  490         userQueue_t outMsg;
-//  491 
-//  492         outMsg.resp = RSP_CODE | cmndId;  /* Response ID */
-//  493         osal_buffer_uint32( outMsg.rbuf, counter );    /* Increment counter */
-//  494         osal_queue_send( UserQueue1, &outMsg, 0 );  /* Send back to UserTask */
-//  495         break;
-//  496       }
-//  497       
-//  498       default:
-//  499         break;  /* Ignore unknown command */    
-//  500     }
-//  501   }
-//  502 }
-//  503 #endif
+//  463 /*********************************************************************
+//  464  * @fn      ProjectApp_SendTheMessage
+//  465  *
+//  466  * @brief   Send "the" message.
+//  467  *
+//  468  * @param   none
+//  469  *
+//  470  * @return  none
+//  471  */
+//  472 static void ProjectApp_SendTheMessage( void )
+//  473 {
+//  474   char theMessageData[] = "Hello World";
+//  475 
+//  476   if ( AF_DataRequest( &ProjectApp_DstAddr, &ProjectApp_epDesc,
+//  477                        PROJECTAPP_CLUSTERID,
+//  478                        (byte)osal_strlen( theMessageData ) + 1,
+//  479                        (byte *)&theMessageData,
+//  480                        &ProjectApp_TransID,
+//  481                        AF_DISCV_ROUTE, AF_DEFAULT_RADIUS ) == afStatus_SUCCESS )
+//  482   {
+//  483     // Successfully requested to be sent.
+//  484   }
+//  485   else
+//  486   {
+//  487     // Error occurred in request to send.
+//  488   }
+//  489 }
+//  490 
+//  491 #if defined( IAR_ARMCM3_LM )
+//  492 /*********************************************************************
+//  493  * @fn      ProjectApp_ProcessRtosMessage
+//  494  *
+//  495  * @brief   Receive message from RTOS queue, send response back.
+//  496  *
+//  497  * @param   none
+//  498  *
+//  499  * @return  none
+//  500  */
+//  501 static void ProjectApp_ProcessRtosMessage( void )
+//  502 {
+//  503   osalQueue_t inMsg;
 //  504 
-//  505 /*********************************************************************
-//  506  */
+//  505   if ( osal_queue_receive( OsalQueue, &inMsg, 0 ) == pdPASS )
+//  506   {
+//  507     uint8 cmndId = inMsg.cmnd;
+//  508     uint32 counter = osal_build_uint32( inMsg.cbuf, 4 );
+//  509 
+//  510     switch ( cmndId )
+//  511     {
+//  512       case CMD_INCR:
+//  513         counter += 1;  /* Increment the incoming counter */
+//  514                        /* Intentionally fall through next case */
+//  515 
+//  516       case CMD_ECHO:
+//  517       {
+//  518         userQueue_t outMsg;
+//  519 
+//  520         outMsg.resp = RSP_CODE | cmndId;  /* Response ID */
+//  521         osal_buffer_uint32( outMsg.rbuf, counter );    /* Increment counter */
+//  522         osal_queue_send( UserQueue1, &outMsg, 0 );  /* Send back to UserTask */
+//  523         break;
+//  524       }
+//  525       
+//  526       default:
+//  527         break;  /* Ignore unknown command */    
+//  528     }
+//  529   }
+//  530 }
+//  531 #endif
+//  532 
+//  533 /*********************************************************************
+//  534  */
 // 
-// 792 bytes in segment BANKED_CODE
-//  18 bytes in segment BANK_RELAYS
-//  75 bytes in segment XDATA_ROM_C
+// 888 bytes in segment BANKED_CODE
+//  24 bytes in segment BANK_RELAYS
+//   1 byte  in segment SFR_AN
+//  95 bytes in segment XDATA_ROM_C
 //  21 bytes in segment XDATA_Z
 // 
-//  18 bytes of CODE     memory
-//  75 bytes of CONST    memory
-// 792 bytes of HUGECODE memory
+//  24 bytes of CODE     memory
+//  95 bytes of CONST    memory
+//   0 bytes of DATA     memory (+ 1 byte shared)
+// 888 bytes of HUGECODE memory
 //  21 bytes of XDATA    memory
 //
 //Errors: none
-//Warnings: 1
+//Warnings: none

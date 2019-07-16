@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V10.30.1.6000 for 8051               16/Jul/2019  23:03:13
+# IAR C/C++ Compiler V10.30.1.6000 for 8051               16/Jul/2019  23:26:19
 # Copyright 2004-2018 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for 8051
 #
@@ -14,7 +14,7 @@
 #    Source file        =  
 #        E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\Source\ProjectApp.c
 #    Command line       =  
-#        -f C:\Users\Admin\AppData\Local\Temp\EWE88A.tmp
+#        -f C:\Users\Admin\AppData\Local\Temp\EWB3D.tmp
 #        (E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\Source\ProjectApp.c
 #        -D xZTOOL_P1 -D xMT_TASK -D xMT_SYS_FUNC -D xMT_ZDO_FUNC -D
 #        HAL_UART=TRUE -D xLCD_SUPPORTED=DEBUG -D HAL_LCD=FALSE -lC
@@ -109,6 +109,11 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
      10          
      11          #if !defined( WIN32 )
      12            #include "OnBoard.h"
+
+   \                                 In  segment SFR_AN, at 0x80
+   \   union <unnamed> volatile __sfr _A_P0
+   \                     _A_P0:
+   \   000000                DS 1
      13          #endif
      14          
      15          /* HAL */
@@ -292,13 +297,13 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
     137            // If the hardware is other parts of the device add it in main().
     138          
     139            ProjectApp_DstAddr.addrMode = (afAddrMode_t)AddrNotPresent;
-   \   000015   12....       LCALL     ?Subroutine0 & 0xFFFF
+   \   000015   12....       LCALL     ?Subroutine1 & 0xFFFF
     140            ProjectApp_DstAddr.endPoint = 0;
     141            ProjectApp_DstAddr.addr.shortAddr = 0;
     142          
     143            // Fill out the endpoint description.
     144            ProjectApp_epDesc.endPoint = PROJECTAPP_ENDPOINT;
-   \                     ??CrossCallReturnLabel_0:
+   \                     ??CrossCallReturnLabel_2:
    \   000018   90....       MOV       DPTR,#ProjectApp_epDesc
    \   00001B   740A         MOV       A,#0xa
    \   00001D   F0           MOVX      @DPTR,A
@@ -344,12 +349,12 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
     160          
     161            ZDO_RegisterForZDOMsg( ProjectApp_TaskID, End_Device_Bind_rsp );
    \   000040                ; Setup parameters for call to function ZDO_RegisterForZDOMsg
-   \   000040   12....       LCALL     ?Subroutine1 & 0xFFFF
+   \   000040   12....       LCALL     ?Subroutine2 & 0xFFFF
     162            ZDO_RegisterForZDOMsg( ProjectApp_TaskID, Match_Desc_rsp );
-   \                     ??CrossCallReturnLabel_2:
+   \                     ??CrossCallReturnLabel_6:
    \   000043                ; Setup parameters for call to function ZDO_RegisterForZDOMsg
    \   000043   7A06         MOV       R2,#0x6
-   \   000045   12....       LCALL     ??Subroutine2_0 & 0xFFFF
+   \   000045   12....       LCALL     ??Subroutine4_0 & 0xFFFF
     163          
     164          #if defined( IAR_ARMCM3_LM )
     165            // Register this task with RTOS task initiator
@@ -357,27 +362,27 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
     167          #endif
     168            
     169             USER_Uart0_Init(HAL_UART_BR_115200);
-   \                     ??CrossCallReturnLabel_4:
+   \                     ??CrossCallReturnLabel_8:
    \   000048                ; Setup parameters for call to function USER_Uart0_Init
    \   000048   7904         MOV       R1,#0x4
    \   00004A   12....       LCALL     `??USER_Uart0_Init::?relay`; Banked call to: USER_Uart0_Init
     170             
     171          ZDO_RegisterForZDOMsg( ProjectApp_TaskID, End_Device_Bind_rsp );
    \   00004D                ; Setup parameters for call to function ZDO_RegisterForZDOMsg
-   \   00004D   12....       LCALL     ?Subroutine1 & 0xFFFF
+   \   00004D   12....       LCALL     ?Subroutine2 & 0xFFFF
     172          }
-   \                     ??CrossCallReturnLabel_3:
+   \                     ??CrossCallReturnLabel_7:
    \   000050   7F01         MOV       R7,#0x1
    \   000052   02....       LJMP      ?BANKED_LEAVE_XDATA
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine1:
+   \                     ?Subroutine2:
    \   000000   7A20         MOV       R2,#0x20
-   \   000002                REQUIRE ??Subroutine2_0
-   \   000002                ; // Fall through to label ??Subroutine2_0
+   \   000002                REQUIRE ??Subroutine4_0
+   \   000002                ; // Fall through to label ??Subroutine4_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine2_0:
+   \                     ??Subroutine4_0:
    \   000000   7B80         MOV       R3,#-0x80
    \   000002   90....       MOV       DPTR,#ProjectApp_TaskID
    \   000005   E0           MOVX      A,@DPTR
@@ -386,7 +391,7 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
    \   00000A   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine0:
+   \                     ?Subroutine1:
    \   000000   90....       MOV       DPTR,#ProjectApp_DstAddr + 8
    \   000003   F0           MOVX      @DPTR,A
    \   000004   A3           INC       DPTR
@@ -425,11 +430,13 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
    \   000005                ; Auto size: 12
    \   000005   74F4         MOV       A,#-0xc
    \   000007   12....       LCALL     ?ALLOC_XSTACK8
-   \   00000A   8A..         MOV       ?V0,R2
-   \   00000C   8B..         MOV       ?V1,R3
+   \   00000A   EA           MOV       A,R2
+   \   00000B   FE           MOV       R6,A
+   \   00000C   EB           MOV       A,R3
+   \   00000D   FF           MOV       R7,A
     189            afIncomingMSGPacket_t *MSGpkt;
     190            afDataConfirm_t *afDataConfirm;
-    191          
+    191            
     192            // Data Confirmation message fields
     193            byte sentEP;
     194            ZStatus_t sentStatus;
@@ -437,14 +444,13 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
     196            (void)task_id;  // Intentionally unreferenced parameter
     197          
     198            if ( events & SYS_EVENT_MSG )
-   \   00000E   EB           MOV       A,R3
-   \   00000F   5480         ANL       A,#0x80
-   \   000011   7003         JNZ       $+5
-   \   000013   02....       LJMP      ??ProjectApp_ProcessEvent_0 & 0xFFFF
+   \   00000E   5480         ANL       A,#0x80
+   \   000010   7003         JNZ       $+5
+   \   000012   02....       LJMP      ??ProjectApp_ProcessEvent_0 & 0xFFFF
     199            {
     200              MSGpkt = (afIncomingMSGPacket_t *)osal_msg_receive( ProjectApp_TaskID );
-   \   000016                ; Setup parameters for call to function osal_msg_receive
-   \   000016   800D         SJMP      ??ProjectApp_ProcessEvent_1
+   \   000015                ; Setup parameters for call to function osal_msg_receive
+   \   000015   800D         SJMP      ??ProjectApp_ProcessEvent_1
     201              while ( MSGpkt )
     202              {
     203                switch ( MSGpkt->hdr.event )
@@ -482,11 +488,11 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
     235                  case ZDO_STATE_CHANGE:
     236                     user_state_change((devStates_t)(MSGpkt->hdr.status));
    \                     ??ProjectApp_ProcessEvent_2:
-   \   000018                ; Setup parameters for call to function user_state_change
-   \   000018   A3           INC       DPTR
-   \   000019   E0           MOVX      A,@DPTR
-   \   00001A   F9           MOV       R1,A
-   \   00001B   12....       LCALL     `??user_state_change::?relay`; Banked call to: user_state_change
+   \   000017                ; Setup parameters for call to function user_state_change
+   \   000017   A3           INC       DPTR
+   \   000018   E0           MOVX      A,@DPTR
+   \   000019   F9           MOV       R1,A
+   \   00001A   12....       LCALL     `??user_state_change::?relay`; Banked call to: user_state_change
     237                    break;
     238          
     239                  default:
@@ -496,59 +502,54 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
     243                // Release the memory
     244                osal_msg_deallocate( (uint8 *)MSGpkt );
    \                     ??ProjectApp_ProcessEvent_3:
-   \   00001E                ; Setup parameters for call to function osal_msg_deallocate
-   \   00001E   EE           MOV       A,R6
-   \   00001F   FA           MOV       R2,A
-   \   000020   EF           MOV       A,R7
-   \   000021   FB           MOV       R3,A
-   \   000022   12....       LCALL     `??osal_msg_deallocate::?relay`; Banked call to: osal_msg_deallocate
+   \   00001D                ; Setup parameters for call to function osal_msg_deallocate
+   \   00001D   AA..         MOV       R2,?V0
+   \   00001F   AB..         MOV       R3,?V1
+   \   000021   12....       LCALL     `??osal_msg_deallocate::?relay`; Banked call to: osal_msg_deallocate
     245          
     246                // Next
     247                MSGpkt = (afIncomingMSGPacket_t *)osal_msg_receive( ProjectApp_TaskID );
-   \   000025                ; Setup parameters for call to function osal_msg_receive
+   \   000024                ; Setup parameters for call to function osal_msg_receive
    \                     ??ProjectApp_ProcessEvent_1:
-   \   000025   90....       MOV       DPTR,#ProjectApp_TaskID
-   \   000028   E0           MOVX      A,@DPTR
-   \   000029   F9           MOV       R1,A
-   \   00002A   12....       LCALL     `??osal_msg_receive::?relay`; Banked call to: osal_msg_receive
-   \   00002D   8A..         MOV       ?V2,R2
-   \   00002F   8B..         MOV       ?V3,R3
-   \   000031   AE..         MOV       R6,?V2
-   \   000033   AF..         MOV       R7,?V3
-   \   000035   EE           MOV       A,R6
-   \   000036   4F           ORL       A,R7
-   \   000037   7003         JNZ       $+5
-   \   000039   02....       LJMP      ??ProjectApp_ProcessEvent_4 & 0xFFFF
-   \   00003C   8E82         MOV       DPL,R6
-   \   00003E   8F83         MOV       DPH,R7
-   \   000040   E0           MOVX      A,@DPTR
-   \   000041   24E6         ADD       A,#-0x1a
-   \   000043   6055         JZ        ??ProjectApp_ProcessEvent_5
-   \   000045   245A         ADD       A,#0x5a
-   \   000047   603F         JZ        ??ProjectApp_ProcessEvent_6
-   \   000049   24EF         ADD       A,#-0x11
-   \   00004B   60CB         JZ        ??ProjectApp_ProcessEvent_2
-   \   00004D   24FE         ADD       A,#-0x2
-   \   00004F   70CD         JNZ       ??ProjectApp_ProcessEvent_3
-   \   000051   EE           MOV       A,R6
-   \   000052   240C         ADD       A,#0xc
-   \   000054   F582         MOV       DPL,A
-   \   000056   E4           CLR       A
-   \   000057   3F           ADDC      A,R7
-   \   000058   F583         MOV       DPH,A
-   \   00005A   E0           MOVX      A,@DPTR
-   \   00005B   6420         XRL       A,#0x20
-   \   00005D   7004         JNZ       ??ProjectApp_ProcessEvent_7
-   \   00005F   A3           INC       DPTR
-   \   000060   E0           MOVX      A,@DPTR
-   \   000061   6480         XRL       A,#0x80
+   \   000024   90....       MOV       DPTR,#ProjectApp_TaskID
+   \   000027   E0           MOVX      A,@DPTR
+   \   000028   F9           MOV       R1,A
+   \   000029   12....       LCALL     `??osal_msg_receive::?relay`; Banked call to: osal_msg_receive
+   \   00002C   8A..         MOV       ?V0,R2
+   \   00002E   8B..         MOV       ?V1,R3
+   \   000030   E5..         MOV       A,?V0
+   \   000032   45..         ORL       A,?V1
+   \   000034   6070         JZ        ??ProjectApp_ProcessEvent_4
+   \   000036   85..82       MOV       DPL,?V0
+   \   000039   85..83       MOV       DPH,?V1
+   \   00003C   E0           MOVX      A,@DPTR
+   \   00003D   24E6         ADD       A,#-0x1a
+   \   00003F   605B         JZ        ??ProjectApp_ProcessEvent_5
+   \   000041   245A         ADD       A,#0x5a
+   \   000043   6043         JZ        ??ProjectApp_ProcessEvent_6
+   \   000045   24EF         ADD       A,#-0x11
+   \   000047   60CE         JZ        ??ProjectApp_ProcessEvent_2
+   \   000049   24FE         ADD       A,#-0x2
+   \   00004B   70D0         JNZ       ??ProjectApp_ProcessEvent_3
+   \   00004D   E5..         MOV       A,?V0
+   \   00004F   240C         ADD       A,#0xc
+   \   000051   F582         MOV       DPL,A
+   \   000053   E4           CLR       A
+   \   000054   35..         ADDC      A,?V1
+   \   000056   F583         MOV       DPH,A
+   \   000058   E0           MOVX      A,@DPTR
+   \   000059   6420         XRL       A,#0x20
+   \   00005B   7004         JNZ       ??ProjectApp_ProcessEvent_7
+   \   00005D   A3           INC       DPTR
+   \   00005E   E0           MOVX      A,@DPTR
+   \   00005F   6480         XRL       A,#0x80
    \                     ??ProjectApp_ProcessEvent_7:
-   \   000063   70B9         JNZ       ??ProjectApp_ProcessEvent_3
-   \   000065   EE           MOV       A,R6
-   \   000066   2413         ADD       A,#0x13
-   \   000068   F582         MOV       DPL,A
-   \   00006A   E4           CLR       A
-   \   00006B   3F           ADDC      A,R7
+   \   000061   70BA         JNZ       ??ProjectApp_ProcessEvent_3
+   \   000063   E5..         MOV       A,?V0
+   \   000065   2413         ADD       A,#0x13
+   \   000067   F582         MOV       DPL,A
+   \   000069   E4           CLR       A
+   \   00006A   35..         ADDC      A,?V1
    \   00006C   F583         MOV       DPH,A
    \   00006E   E0           MOVX      A,@DPTR
    \   00006F   F8           MOV       R0,A
@@ -563,7 +564,7 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
    \   00007B   7B..         MOV       R3,#(`?<Constant "Bind success!\\r\\n">` >> 8) & 0xff
    \                     ??ProjectApp_ProcessEvent_9:
    \   00007D   12....       LCALL     `??printf::?relay`; Banked call to: printf
-   \   000080   809C         SJMP      ??ProjectApp_ProcessEvent_3
+   \   000080   809B         SJMP      ??ProjectApp_ProcessEvent_3
    \                     ??ProjectApp_ProcessEvent_8:
    \   000082                ; Setup parameters for call to function printf
    \   000082   7A..         MOV       R2,#`?<Constant "Bind failure!\\r\\n">` & 0xff
@@ -576,128 +577,102 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
    \   00008A   A3           INC       DPTR
    \   00008B   E0           MOVX      A,@DPTR
    \   00008C   FA           MOV       R2,A
-   \   00008D   8E82         MOV       DPL,R6
-   \   00008F   8F83         MOV       DPH,R7
-   \   000091   A3           INC       DPTR
-   \   000092   A3           INC       DPTR
-   \   000093   E0           MOVX      A,@DPTR
-   \   000094   F9           MOV       R1,A
-   \   000095   12....       LCALL     `??ProjectApp_HandleKeys::?relay`; Banked call to: ProjectApp_HandleKeys
-   \   000098   8084         SJMP      ??ProjectApp_ProcessEvent_3
+   \   00008D   85..82       MOV       DPL,?V0
+   \   000090   85..83       MOV       DPH,?V1
+   \   000093   A3           INC       DPTR
+   \   000094   A3           INC       DPTR
+   \   000095   E0           MOVX      A,@DPTR
+   \   000096   F9           MOV       R1,A
+   \   000097   12....       LCALL     `??ProjectApp_HandleKeys::?relay`; Banked call to: ProjectApp_HandleKeys
+   \   00009A   8081         SJMP      ??ProjectApp_ProcessEvent_3
    \                     ??ProjectApp_ProcessEvent_5:
-   \   00009A   A3           INC       DPTR
-   \   00009B   A3           INC       DPTR
-   \   00009C   A3           INC       DPTR
-   \   00009D   A3           INC       DPTR
-   \   00009E   E0           MOVX      A,@DPTR
-   \   00009F   6401         XRL       A,#0x1
-   \   0000A1   7002         JNZ       ??ProjectApp_ProcessEvent_10
-   \   0000A3   A3           INC       DPTR
-   \   0000A4   E0           MOVX      A,@DPTR
-   \                     ??ProjectApp_ProcessEvent_10:
-   \   0000A5   6003         JZ        $+5
-   \   0000A7   02....       LJMP      ??ProjectApp_ProcessEvent_3 & 0xFFFF
-   \   0000AA                ; Setup parameters for call to function printf
-   \   0000AA   EE           MOV       A,R6
-   \   0000AB   2422         ADD       A,#0x22
-   \   0000AD   F582         MOV       DPL,A
-   \   0000AF   E4           CLR       A
-   \   0000B0   3F           ADDC      A,R7
-   \   0000B1   F583         MOV       DPH,A
-   \   0000B3   12....       LCALL     ?PUSH_XSTACK8_X_TWO
-   \   0000B6   7A..         MOV       R2,#`?<Constant "%s\\r\\n">` & 0xff
-   \   0000B8   7B..         MOV       R3,#(`?<Constant "%s\\r\\n">` >> 8) & 0xff
-   \   0000BA   12....       LCALL     `??printf::?relay`; Banked call to: printf
-   \   0000BD   7402         MOV       A,#0x2
-   \   0000BF   12....       LCALL     ?DEALLOC_XSTACK8
-   \   0000C2   02....       LJMP      ??ProjectApp_ProcessEvent_3 & 0xFFFF
+   \   00009C                ; Setup parameters for call to function ProjectApp_MessageMSGCB
+   \   00009C   AA..         MOV       R2,?V0
+   \   00009E   AB..         MOV       R3,?V1
+   \   0000A0   12....       LCALL     `??ProjectApp_MessageMSGCB::?relay`; Banked call to: ProjectApp_MessageMSGCB
+   \   0000A3   02....       LJMP      ??ProjectApp_ProcessEvent_3 & 0xFFFF
     248              }
     249          
     250              // return unprocessed events
     251              return (events ^ SYS_EVENT_MSG);
    \                     ??ProjectApp_ProcessEvent_4:
-   \   0000C5   AA..         MOV       R2,?V0
-   \   0000C7   E5..         MOV       A,?V1
-   \   0000C9   6480         XRL       A,#0x80
-   \   0000CB   FB           MOV       R3,A
-   \   0000CC   02....       LJMP      ??ProjectApp_ProcessEvent_11 & 0xFFFF
+   \   0000A6   EE           MOV       A,R6
+   \   0000A7   FA           MOV       R2,A
+   \   0000A8   EF           MOV       A,R7
+   \   0000A9   6480         XRL       A,#0x80
+   \   0000AB   806C         SJMP      ??ProjectApp_ProcessEvent_10
     252            }
     253          
     254            // Send a message out - This event is generated by a timer
     255            //  (setup in ProjectApp_Init()).
     256            if ( events & PROJECTAPP_SEND_MSG_EVT )
    \                     ??ProjectApp_ProcessEvent_0:
-   \   0000CF   EA           MOV       A,R2
-   \   0000D0   A2E0         MOV       C,0xE0 /* A   */.0
-   \   0000D2   5079         JNC       ??ProjectApp_ProcessEvent_12
+   \   0000AD   EA           MOV       A,R2
+   \   0000AE   A2E0         MOV       C,0xE0 /* A   */.0
+   \   0000B0   506A         JNC       ??ProjectApp_ProcessEvent_11
     257            {
     258              // Send "the" message
     259              ProjectApp_SendTheMessage();
-   \   0000D4   90....       MOV       DPTR,#`?<Constant "Hello World">`
-   \   0000D7   AC..         MOV       R4,?XSP + 0
-   \   0000D9   AD..         MOV       R5,?XSP + 1
-   \   0000DB   740C         MOV       A,#0xc
-   \   0000DD   12....       LCALL     ?MOVE_LONG8_XDATA_XDATA
-   \   0000E0                ; Setup parameters for call to function osal_strlen
-   \   0000E0   AA..         MOV       R2,?XSP + 0
-   \   0000E2   AB..         MOV       R3,?XSP + 1
-   \   0000E4   12....       LCALL     `??osal_strlen::?relay`; Banked call to: osal_strlen
-   \   0000E7                ; Setup parameters for call to function AF_DataRequest
-   \   0000E7   75..1E       MOV       ?V2,#0x1e
-   \   0000EA   78..         MOV       R0,#?V2
-   \   0000EC   12....       LCALL     ?PUSH_XSTACK_I_ONE
-   \   0000EF   75....       MOV       ?V2,#ProjectApp_TransID & 0xff
-   \   0000F2   75....       MOV       ?V3,#(ProjectApp_TransID >> 8) & 0xff
-   \   0000F5   78..         MOV       R0,#?V2
-   \   0000F7   12....       LCALL     ?PUSH_XSTACK_I_TWO
-   \   0000FA   7403         MOV       A,#0x3
-   \   0000FC   12....       LCALL     ?XSTACK_DISP100_8
-   \   0000FF   88..         MOV       ?V2,R0
-   \   000101   89..         MOV       ?V3,R1
-   \   000103   78..         MOV       R0,#?V2
-   \   000105   12....       LCALL     ?PUSH_XSTACK_I_TWO
-   \   000108   EA           MOV       A,R2
-   \   000109   2401         ADD       A,#0x1
-   \   00010B   F5..         MOV       ?V2,A
-   \   00010D   E4           CLR       A
-   \   00010E   3400         ADDC      A,#0x0
-   \   000110   F5..         MOV       ?V3,A
-   \   000112   78..         MOV       R0,#?V2
-   \   000114   12....       LCALL     ?PUSH_XSTACK_I_TWO
-   \   000117   75..01       MOV       ?V2,#0x1
-   \   00011A   75..00       MOV       ?V3,#0x0
-   \   00011D   78..         MOV       R0,#?V2
-   \   00011F   12....       LCALL     ?PUSH_XSTACK_I_TWO
-   \   000122   7920         MOV       R1,#0x20
-   \   000124   7C..         MOV       R4,#ProjectApp_epDesc & 0xff
-   \   000126   7D..         MOV       R5,#(ProjectApp_epDesc >> 8) & 0xff
-   \   000128   7A..         MOV       R2,#ProjectApp_DstAddr & 0xff
-   \   00012A   7B..         MOV       R3,#(ProjectApp_DstAddr >> 8) & 0xff
-   \   00012C   12....       LCALL     `??AF_DataRequest::?relay`; Banked call to: AF_DataRequest
-   \   00012F   7409         MOV       A,#0x9
-   \   000131   12....       LCALL     ?DEALLOC_XSTACK8
+   \   0000B2   90....       MOV       DPTR,#`?<Constant "Hello World">`
+   \   0000B5   AC..         MOV       R4,?XSP + 0
+   \   0000B7   AD..         MOV       R5,?XSP + 1
+   \   0000B9   740C         MOV       A,#0xc
+   \   0000BB   12....       LCALL     ?MOVE_LONG8_XDATA_XDATA
+   \   0000BE                ; Setup parameters for call to function osal_strlen
+   \   0000BE   AA..         MOV       R2,?XSP + 0
+   \   0000C0   AB..         MOV       R3,?XSP + 1
+   \   0000C2   12....       LCALL     ?Subroutine3 & 0xFFFF
+   \                     ??CrossCallReturnLabel_4:
+   \   0000C5   12....       LCALL     ?PUSH_XSTACK_I_ONE
+   \   0000C8   75....       MOV       ?V0,#ProjectApp_TransID & 0xff
+   \   0000CB   75....       MOV       ?V1,#(ProjectApp_TransID >> 8) & 0xff
+   \   0000CE   78..         MOV       R0,#?V0
+   \   0000D0   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   0000D3   7403         MOV       A,#0x3
+   \   0000D5   12....       LCALL     ?XSTACK_DISP100_8
+   \   0000D8   88..         MOV       ?V0,R0
+   \   0000DA   89..         MOV       ?V1,R1
+   \   0000DC   78..         MOV       R0,#?V0
+   \   0000DE   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   0000E1   12....       LCALL     ?Subroutine0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_0:
+   \   0000E4   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   0000E7   75..01       MOV       ?V0,#0x1
+   \   0000EA   75..00       MOV       ?V1,#0x0
+   \   0000ED   78..         MOV       R0,#?V0
+   \   0000EF   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   0000F2   7920         MOV       R1,#0x20
+   \   0000F4   7C..         MOV       R4,#ProjectApp_epDesc & 0xff
+   \   0000F6   7D..         MOV       R5,#(ProjectApp_epDesc >> 8) & 0xff
+   \   0000F8   7A..         MOV       R2,#ProjectApp_DstAddr & 0xff
+   \   0000FA   7B..         MOV       R3,#(ProjectApp_DstAddr >> 8) & 0xff
+   \   0000FC   12....       LCALL     `??AF_DataRequest::?relay`; Banked call to: AF_DataRequest
+   \   0000FF   7409         MOV       A,#0x9
+   \   000101   12....       LCALL     ?DEALLOC_XSTACK8
     260          
     261              // Setup to send message again
     262              osal_start_timerEx( ProjectApp_TaskID,
     263                                  PROJECTAPP_SEND_MSG_EVT,
     264                                  PROJECTAPP_SEND_MSG_TIMEOUT );
-   \   000134                ; Setup parameters for call to function osal_start_timerEx
-   \   000134   7C88         MOV       R4,#-0x78
-   \   000136   7D13         MOV       R5,#0x13
-   \   000138   7A01         MOV       R2,#0x1
-   \   00013A   7B00         MOV       R3,#0x0
-   \   00013C   90....       MOV       DPTR,#ProjectApp_TaskID
-   \   00013F   E0           MOVX      A,@DPTR
-   \   000140   F9           MOV       R1,A
-   \   000141   12....       LCALL     `??osal_start_timerEx::?relay`; Banked call to: osal_start_timerEx
+   \   000104                ; Setup parameters for call to function osal_start_timerEx
+   \   000104   7C88         MOV       R4,#-0x78
+   \   000106   7D13         MOV       R5,#0x13
+   \   000108   7A01         MOV       R2,#0x1
+   \   00010A   7B00         MOV       R3,#0x0
+   \   00010C   90....       MOV       DPTR,#ProjectApp_TaskID
+   \   00010F   E0           MOVX      A,@DPTR
+   \   000110   F9           MOV       R1,A
+   \   000111   12....       LCALL     `??osal_start_timerEx::?relay`; Banked call to: osal_start_timerEx
     265          
     266              // return unprocessed events
     267              return (events ^ PROJECTAPP_SEND_MSG_EVT);
-   \   000144   E5..         MOV       A,?V0
-   \   000146   6401         XRL       A,#0x1
-   \   000148   FA           MOV       R2,A
-   \   000149   AB..         MOV       R3,?V1
-   \   00014B   8004         SJMP      ??ProjectApp_ProcessEvent_11
+   \   000114   EE           MOV       A,R6
+   \   000115   6401         XRL       A,#0x1
+   \   000117   FA           MOV       R2,A
+   \   000118   EF           MOV       A,R7
+   \                     ??ProjectApp_ProcessEvent_10:
+   \   000119   FB           MOV       R3,A
+   \   00011A   8004         SJMP      ??ProjectApp_ProcessEvent_12
     268            }
     269          
     270            
@@ -715,14 +690,14 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
     282          
     283            // Discard unknown events
     284            return 0;
-   \                     ??ProjectApp_ProcessEvent_12:
-   \   00014D   7A00         MOV       R2,#0x0
-   \   00014F   7B00         MOV       R3,#0x0
    \                     ??ProjectApp_ProcessEvent_11:
-   \   000151   740C         MOV       A,#0xc
-   \   000153   12....       LCALL     ?DEALLOC_XSTACK8
-   \   000156   7F04         MOV       R7,#0x4
-   \   000158   02....       LJMP      ?BANKED_LEAVE_XDATA
+   \   00011C   7A00         MOV       R2,#0x0
+   \   00011E   7B00         MOV       R3,#0x0
+   \                     ??ProjectApp_ProcessEvent_12:
+   \   000120   740C         MOV       A,#0xc
+   \   000122   12....       LCALL     ?DEALLOC_XSTACK8
+   \   000125   7F04         MOV       R7,#0x4
+   \   000127   02....       LJMP      ?BANKED_LEAVE_XDATA
     285          }
     286          
     287          
@@ -761,7 +736,7 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
     306            // Shift is used to make each button/switch dual purpose.
     307            if ( shift )
    \   00000C   E9           MOV       A,R1
-   \   00000D   706A         JNZ       ??ProjectApp_HandleKeys_0
+   \   00000D   705C         JNZ       ??ProjectApp_HandleKeys_0
     308            {
     309              if ( keys & HAL_KEY_SW_1 )
     310              {
@@ -781,7 +756,7 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
     324              if ( keys & HAL_KEY_SW_1 )
    \   00000F   EA           MOV       A,R2
    \   000010   A2E0         MOV       C,0xE0 /* A   */.0
-   \   000012   5065         JNC       ??ProjectApp_HandleKeys_0
+   \   000012   5057         JNC       ??ProjectApp_HandleKeys_0
     325              {
     326              ProjectApp_SendBindcast();
    \   000014   90....       MOV       DPTR,#`?<Constant "Bind data\\r\\n">`
@@ -789,46 +764,39 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
    \   000019   12....       LCALL     ?XSTACK_DISP102_8
    \   00001C   740C         MOV       A,#0xc
    \   00001E   12....       LCALL     ?MOVE_LONG8_XDATA_XDATA
-   \   000021   12....       LCALL     ?Subroutine0 & 0xFFFF
-   \                     ??CrossCallReturnLabel_1:
+   \   000021   12....       LCALL     ?Subroutine1 & 0xFFFF
+   \                     ??CrossCallReturnLabel_3:
    \   000024                ; Setup parameters for call to function osal_strlen
    \   000024   7409         MOV       A,#0x9
    \   000026   12....       LCALL     ?XSTACK_DISP101_8
-   \   000029   12....       LCALL     `??osal_strlen::?relay`; Banked call to: osal_strlen
-   \   00002C                ; Setup parameters for call to function AF_DataRequest
-   \   00002C   75..1E       MOV       ?V0,#0x1e
-   \   00002F   78..         MOV       R0,#?V0
-   \   000031   12....       LCALL     ?PUSH_XSTACK_I_ONE
-   \   000034   75....       MOV       ?V0,#ProjectApp_TransID & 0xff
-   \   000037   75....       MOV       ?V1,#(ProjectApp_TransID >> 8) & 0xff
-   \   00003A   78..         MOV       R0,#?V0
-   \   00003C   12....       LCALL     ?PUSH_XSTACK_I_TWO
-   \   00003F   740C         MOV       A,#0xc
-   \   000041   12....       LCALL     ?XSTACK_DISP100_8
-   \   000044   88..         MOV       ?V0,R0
-   \   000046   89..         MOV       ?V1,R1
-   \   000048   78..         MOV       R0,#?V0
-   \   00004A   12....       LCALL     ?PUSH_XSTACK_I_TWO
-   \   00004D   EA           MOV       A,R2
-   \   00004E   2401         ADD       A,#0x1
-   \   000050   F5..         MOV       ?V0,A
-   \   000052   E4           CLR       A
-   \   000053   3400         ADDC      A,#0x0
-   \   000055   F5..         MOV       ?V1,A
-   \   000057   78..         MOV       R0,#?V0
-   \   000059   12....       LCALL     ?PUSH_XSTACK_I_TWO
-   \   00005C   75..01       MOV       ?V0,#0x1
-   \   00005F   75..00       MOV       ?V1,#0x0
-   \   000062   78..         MOV       R0,#?V0
-   \   000064   12....       LCALL     ?PUSH_XSTACK_I_TWO
-   \   000067   7920         MOV       R1,#0x20
-   \   000069   7C..         MOV       R4,#ProjectApp_epDesc & 0xff
-   \   00006B   7D..         MOV       R5,#(ProjectApp_epDesc >> 8) & 0xff
-   \   00006D   7A..         MOV       R2,#ProjectApp_DstAddr & 0xff
-   \   00006F   7B..         MOV       R3,#(ProjectApp_DstAddr >> 8) & 0xff
-   \   000071   12....       LCALL     `??AF_DataRequest::?relay`; Banked call to: AF_DataRequest
-   \   000074   7409         MOV       A,#0x9
-   \   000076   12....       LCALL     ?DEALLOC_XSTACK8
+   \   000029   12....       LCALL     ?Subroutine3 & 0xFFFF
+   \                     ??CrossCallReturnLabel_5:
+   \   00002C   12....       LCALL     ?PUSH_XSTACK_I_ONE
+   \   00002F   75....       MOV       ?V0,#ProjectApp_TransID & 0xff
+   \   000032   75....       MOV       ?V1,#(ProjectApp_TransID >> 8) & 0xff
+   \   000035   78..         MOV       R0,#?V0
+   \   000037   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   00003A   740C         MOV       A,#0xc
+   \   00003C   12....       LCALL     ?XSTACK_DISP100_8
+   \   00003F   88..         MOV       ?V0,R0
+   \   000041   89..         MOV       ?V1,R1
+   \   000043   78..         MOV       R0,#?V0
+   \   000045   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   000048   12....       LCALL     ?Subroutine0 & 0xFFFF
+   \                     ??CrossCallReturnLabel_1:
+   \   00004B   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   00004E   75..01       MOV       ?V0,#0x1
+   \   000051   75..00       MOV       ?V1,#0x0
+   \   000054   78..         MOV       R0,#?V0
+   \   000056   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   000059   7920         MOV       R1,#0x20
+   \   00005B   7C..         MOV       R4,#ProjectApp_epDesc & 0xff
+   \   00005D   7D..         MOV       R5,#(ProjectApp_epDesc >> 8) & 0xff
+   \   00005F   7A..         MOV       R2,#ProjectApp_DstAddr & 0xff
+   \   000061   7B..         MOV       R3,#(ProjectApp_DstAddr >> 8) & 0xff
+   \   000063   12....       LCALL     `??AF_DataRequest::?relay`; Banked call to: AF_DataRequest
+   \   000066   7409         MOV       A,#0x9
+   \   000068   12....       LCALL     ?DEALLOC_XSTACK8
     327              }
     328          
     329          #if defined( SWITCH1_BIND )
@@ -842,69 +810,69 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
     337          
     338              if ( keys & HAL_KEY_SW_2 )
    \                     ??ProjectApp_HandleKeys_0:
-   \   000079   EE           MOV       A,R6
-   \   00007A   A2E1         MOV       C,0xE0 /* A   */.1
-   \   00007C   5069         JNC       ??ProjectApp_HandleKeys_1
+   \   00006B   EE           MOV       A,R6
+   \   00006C   A2E1         MOV       C,0xE0 /* A   */.1
+   \   00006E   5069         JNC       ??ProjectApp_HandleKeys_1
     339              {
     340                HalLedSet ( HAL_LED_4, HAL_LED_MODE_OFF );
-   \   00007E                ; Setup parameters for call to function HalLedSet
-   \   00007E   7A00         MOV       R2,#0x0
-   \   000080   7908         MOV       R1,#0x8
-   \   000082   12....       LCALL     `??HalLedSet::?relay`; Banked call to: HalLedSet
+   \   000070                ; Setup parameters for call to function HalLedSet
+   \   000070   7A00         MOV       R2,#0x0
+   \   000072   7908         MOV       R1,#0x8
+   \   000074   12....       LCALL     `??HalLedSet::?relay`; Banked call to: HalLedSet
     341          
     342                // Initiate an End Device Bind Request for the mandatory endpoint
     343                dstAddr.addrMode = Addr16Bit;
-   \   000085   7408         MOV       A,#0x8
-   \   000087   12....       LCALL     ?XSTACK_DISP0_8
-   \   00008A   7402         MOV       A,#0x2
-   \   00008C   F0           MOVX      @DPTR,A
+   \   000077   7408         MOV       A,#0x8
+   \   000079   12....       LCALL     ?XSTACK_DISP0_8
+   \   00007C   7402         MOV       A,#0x2
+   \   00007E   F0           MOVX      @DPTR,A
     344                dstAddr.addr.shortAddr = 0x0000; // Coordinator
-   \   00008D   85..82       MOV       DPL,?XSP + 0
-   \   000090   85..83       MOV       DPH,?XSP + 1
-   \   000093   E4           CLR       A
-   \   000094   F0           MOVX      @DPTR,A
-   \   000095   A3           INC       DPTR
-   \   000096   F0           MOVX      @DPTR,A
+   \   00007F   85..82       MOV       DPL,?XSP + 0
+   \   000082   85..83       MOV       DPH,?XSP + 1
+   \   000085   E4           CLR       A
+   \   000086   F0           MOVX      @DPTR,A
+   \   000087   A3           INC       DPTR
+   \   000088   F0           MOVX      @DPTR,A
     345                ZDP_EndDeviceBindReq( &dstAddr, NLME_GetShortAddr(),
     346                                      ProjectApp_epDesc.endPoint,
     347                                      PROJECTAPP_PROFID,
     348                                      PROJECTAPP_MAX_CLUSTERS, (cId_t *)ProjectApp_ClusterList,
     349                                      PROJECTAPP_MAX_CLUSTERS, (cId_t *)ProjectApp_ClusterList,
     350                                      FALSE );
-   \   000097                ; Setup parameters for call to function NLME_GetShortAddr
-   \   000097   12....       LCALL     `??NLME_GetShortAddr::?relay`; Banked call to: NLME_GetShortAddr
-   \   00009A   8A..         MOV       ?V0,R2
-   \   00009C   8B..         MOV       ?V1,R3
-   \   00009E   AC..         MOV       R4,?V0
-   \   0000A0   AD..         MOV       R5,?V1
-   \   0000A2   75....       MOV       ?V0,#ProjectApp_ClusterList & 0xff
-   \   0000A5   75....       MOV       ?V1,#(ProjectApp_ClusterList >> 8) & 0xff
-   \   0000A8                ; Setup parameters for call to function ZDP_EndDeviceBindReq
-   \   0000A8   75..00       MOV       ?V2,#0x0
-   \   0000AB   78..         MOV       R0,#?V2
-   \   0000AD   12....       LCALL     ?PUSH_XSTACK_I_ONE
-   \   0000B0   78..         MOV       R0,#?V0
-   \   0000B2   12....       LCALL     ?PUSH_XSTACK_I_TWO
-   \   0000B5   75..01       MOV       ?V2,#0x1
-   \   0000B8   78..         MOV       R0,#?V2
-   \   0000BA   12....       LCALL     ?PUSH_XSTACK_I_ONE
-   \   0000BD   78..         MOV       R0,#?V0
-   \   0000BF   12....       LCALL     ?PUSH_XSTACK_I_TWO
-   \   0000C2   75..01       MOV       ?V0,#0x1
-   \   0000C5   78..         MOV       R0,#?V0
-   \   0000C7   12....       LCALL     ?PUSH_XSTACK_I_ONE
-   \   0000CA   75..04       MOV       ?V0,#0x4
-   \   0000CD   75..0F       MOV       ?V1,#0xf
-   \   0000D0   78..         MOV       R0,#?V0
-   \   0000D2   12....       LCALL     ?PUSH_XSTACK_I_TWO
-   \   0000D5   90....       MOV       DPTR,#ProjectApp_epDesc
-   \   0000D8   E0           MOVX      A,@DPTR
-   \   0000D9   F9           MOV       R1,A
-   \   0000DA   7409         MOV       A,#0x9
-   \   0000DC   12....       LCALL     ?XSTACK_DISP101_8
-   \   0000DF   12....       LCALL     `??ZDP_EndDeviceBindReq::?relay`; Banked call to: ZDP_EndDeviceBindReq
-   \   0000E2   7409         MOV       A,#0x9
-   \   0000E4   12....       LCALL     ?DEALLOC_XSTACK8
+   \   000089                ; Setup parameters for call to function NLME_GetShortAddr
+   \   000089   12....       LCALL     `??NLME_GetShortAddr::?relay`; Banked call to: NLME_GetShortAddr
+   \   00008C   8A..         MOV       ?V0,R2
+   \   00008E   8B..         MOV       ?V1,R3
+   \   000090   AC..         MOV       R4,?V0
+   \   000092   AD..         MOV       R5,?V1
+   \   000094   75....       MOV       ?V0,#ProjectApp_ClusterList & 0xff
+   \   000097   75....       MOV       ?V1,#(ProjectApp_ClusterList >> 8) & 0xff
+   \   00009A                ; Setup parameters for call to function ZDP_EndDeviceBindReq
+   \   00009A   75..00       MOV       ?V2,#0x0
+   \   00009D   78..         MOV       R0,#?V2
+   \   00009F   12....       LCALL     ?PUSH_XSTACK_I_ONE
+   \   0000A2   78..         MOV       R0,#?V0
+   \   0000A4   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   0000A7   75..01       MOV       ?V2,#0x1
+   \   0000AA   78..         MOV       R0,#?V2
+   \   0000AC   12....       LCALL     ?PUSH_XSTACK_I_ONE
+   \   0000AF   78..         MOV       R0,#?V0
+   \   0000B1   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   0000B4   75..01       MOV       ?V0,#0x1
+   \   0000B7   78..         MOV       R0,#?V0
+   \   0000B9   12....       LCALL     ?PUSH_XSTACK_I_ONE
+   \   0000BC   75..04       MOV       ?V0,#0x4
+   \   0000BF   75..0F       MOV       ?V1,#0xf
+   \   0000C2   78..         MOV       R0,#?V0
+   \   0000C4   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   0000C7   90....       MOV       DPTR,#ProjectApp_epDesc
+   \   0000CA   E0           MOVX      A,@DPTR
+   \   0000CB   F9           MOV       R1,A
+   \   0000CC   7409         MOV       A,#0x9
+   \   0000CE   12....       LCALL     ?XSTACK_DISP101_8
+   \   0000D1   12....       LCALL     `??ZDP_EndDeviceBindReq::?relay`; Banked call to: ZDP_EndDeviceBindReq
+   \   0000D4   7409         MOV       A,#0x9
+   \   0000D6   12....       LCALL     ?DEALLOC_XSTACK8
     351              }
     352          
     353              if ( keys & HAL_KEY_SW_3 )
@@ -913,96 +881,65 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
     356          
     357              if ( keys & HAL_KEY_SW_4 )
    \                     ??ProjectApp_HandleKeys_1:
-   \   0000E7   EE           MOV       A,R6
-   \   0000E8   A2E3         MOV       C,0xE0 /* A   */.3
-   \   0000EA   5058         JNC       ??ProjectApp_HandleKeys_2
+   \   0000D9   EE           MOV       A,R6
+   \   0000DA   A2E3         MOV       C,0xE0 /* A   */.3
+   \   0000DC   5058         JNC       ??ProjectApp_HandleKeys_2
     358              {
     359                HalLedSet ( HAL_LED_4, HAL_LED_MODE_OFF );
-   \   0000EC                ; Setup parameters for call to function HalLedSet
-   \   0000EC   7A00         MOV       R2,#0x0
-   \   0000EE   7908         MOV       R1,#0x8
-   \   0000F0   12....       LCALL     `??HalLedSet::?relay`; Banked call to: HalLedSet
+   \   0000DE                ; Setup parameters for call to function HalLedSet
+   \   0000DE   7A00         MOV       R2,#0x0
+   \   0000E0   7908         MOV       R1,#0x8
+   \   0000E2   12....       LCALL     `??HalLedSet::?relay`; Banked call to: HalLedSet
     360                // Initiate a Match Description Request (Service Discovery)
     361                dstAddr.addrMode = AddrBroadcast;
-   \   0000F3   7408         MOV       A,#0x8
-   \   0000F5   12....       LCALL     ?XSTACK_DISP0_8
-   \   0000F8   740F         MOV       A,#0xf
-   \   0000FA   F0           MOVX      @DPTR,A
+   \   0000E5   7408         MOV       A,#0x8
+   \   0000E7   12....       LCALL     ?XSTACK_DISP0_8
+   \   0000EA   740F         MOV       A,#0xf
+   \   0000EC   F0           MOVX      @DPTR,A
     362                dstAddr.addr.shortAddr = NWK_BROADCAST_SHORTADDR;
-   \   0000FB   85..82       MOV       DPL,?XSP + 0
-   \   0000FE   85..83       MOV       DPH,?XSP + 1
-   \   000101   74FF         MOV       A,#-0x1
-   \   000103   F0           MOVX      @DPTR,A
-   \   000104   A3           INC       DPTR
-   \   000105   F0           MOVX      @DPTR,A
+   \   0000ED   85..82       MOV       DPL,?XSP + 0
+   \   0000F0   85..83       MOV       DPH,?XSP + 1
+   \   0000F3   74FF         MOV       A,#-0x1
+   \   0000F5   F0           MOVX      @DPTR,A
+   \   0000F6   A3           INC       DPTR
+   \   0000F7   F0           MOVX      @DPTR,A
     363                ZDP_MatchDescReq( &dstAddr, NWK_BROADCAST_SHORTADDR,
     364                                  PROJECTAPP_PROFID,
     365                                  PROJECTAPP_MAX_CLUSTERS, (cId_t *)ProjectApp_ClusterList,
     366                                  PROJECTAPP_MAX_CLUSTERS, (cId_t *)ProjectApp_ClusterList,
     367                                  FALSE );
-   \   000106   75....       MOV       ?V0,#ProjectApp_ClusterList & 0xff
-   \   000109   75....       MOV       ?V1,#(ProjectApp_ClusterList >> 8) & 0xff
-   \   00010C                ; Setup parameters for call to function ZDP_MatchDescReq
-   \   00010C   75..00       MOV       ?V2,#0x0
-   \   00010F   78..         MOV       R0,#?V2
-   \   000111   12....       LCALL     ?PUSH_XSTACK_I_ONE
-   \   000114   78..         MOV       R0,#?V0
-   \   000116   12....       LCALL     ?PUSH_XSTACK_I_TWO
-   \   000119   75..01       MOV       ?V2,#0x1
-   \   00011C   78..         MOV       R0,#?V2
-   \   00011E   12....       LCALL     ?PUSH_XSTACK_I_ONE
-   \   000121   78..         MOV       R0,#?V0
-   \   000123   12....       LCALL     ?PUSH_XSTACK_I_TWO
-   \   000126   75..04       MOV       ?V0,#0x4
-   \   000129   75..0F       MOV       ?V1,#0xf
-   \   00012C   78..         MOV       R0,#?V0
-   \   00012E   12....       LCALL     ?PUSH_XSTACK_I_TWO
-   \   000131   7901         MOV       R1,#0x1
-   \   000133   7CFF         MOV       R4,#-0x1
-   \   000135   7DFF         MOV       R5,#-0x1
-   \   000137   7408         MOV       A,#0x8
-   \   000139   12....       LCALL     ?XSTACK_DISP101_8
-   \   00013C   12....       LCALL     `??ZDP_MatchDescReq::?relay`; Banked call to: ZDP_MatchDescReq
-   \   00013F   7408         MOV       A,#0x8
-   \   000141   12....       LCALL     ?DEALLOC_XSTACK8
+   \   0000F8   75....       MOV       ?V0,#ProjectApp_ClusterList & 0xff
+   \   0000FB   75....       MOV       ?V1,#(ProjectApp_ClusterList >> 8) & 0xff
+   \   0000FE                ; Setup parameters for call to function ZDP_MatchDescReq
+   \   0000FE   75..00       MOV       ?V2,#0x0
+   \   000101   78..         MOV       R0,#?V2
+   \   000103   12....       LCALL     ?PUSH_XSTACK_I_ONE
+   \   000106   78..         MOV       R0,#?V0
+   \   000108   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   00010B   75..01       MOV       ?V2,#0x1
+   \   00010E   78..         MOV       R0,#?V2
+   \   000110   12....       LCALL     ?PUSH_XSTACK_I_ONE
+   \   000113   78..         MOV       R0,#?V0
+   \   000115   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   000118   75..04       MOV       ?V0,#0x4
+   \   00011B   75..0F       MOV       ?V1,#0xf
+   \   00011E   78..         MOV       R0,#?V0
+   \   000120   12....       LCALL     ?PUSH_XSTACK_I_TWO
+   \   000123   7901         MOV       R1,#0x1
+   \   000125   7CFF         MOV       R4,#-0x1
+   \   000127   7DFF         MOV       R5,#-0x1
+   \   000129   7408         MOV       A,#0x8
+   \   00012B   12....       LCALL     ?XSTACK_DISP101_8
+   \   00012E   12....       LCALL     `??ZDP_MatchDescReq::?relay`; Banked call to: ZDP_MatchDescReq
+   \   000131   7408         MOV       A,#0x8
+   \   000133   12....       LCALL     ?DEALLOC_XSTACK8
     368              }
     369            }
    \                     ??ProjectApp_HandleKeys_2:
-   \   000144   7415         MOV       A,#0x15
-   \   000146   12....       LCALL     ?DEALLOC_XSTACK8
-   \   000149   7F03         MOV       R7,#0x3
-   \   00014B   02....       LJMP      ?BANKED_LEAVE_XDATA
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "Bind success!\\r\\n">`:
-   \   000000   42696E64     DB "Bind success!\015\012"
-   \            20737563
-   \            63657373
-   \            210D0A00
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "Bind failure!\\r\\n">`:
-   \   000000   42696E64     DB "Bind failure!\015\012"
-   \            20666169
-   \            6C757265
-   \            210D0A00
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "Bind data\\r\\n">`:
-   \   000000   42696E64     DB "Bind data\015\012"
-   \            20646174
-   \            610D0A00
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "%s\\r\\n">`:
-   \   000000   25730D0A     DB "%s\015\012"
-   \            00      
-
-   \                                 In  segment XDATA_ROM_C, align 1
-   \                     `?<Constant "Hello World">`:
-   \   000000   48656C6C     DB "Hello World"
-   \            6F20576F
-   \            726C6400
+   \   000136   7415         MOV       A,#0x15
+   \   000138   12....       LCALL     ?DEALLOC_XSTACK8
+   \   00013B   7F03         MOV       R7,#0x3
+   \   00013D   02....       LJMP      ?BANKED_LEAVE_XDATA
     370          
     371          
     372          static void ProjectApp_ProcessZDOMsgs( zdoIncomingMsg_t *inMsg )//每次“绑定”状态发生改变，均会调用此函数
@@ -1043,8 +980,6 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
     407          
     408          
     409          uint8 GetLamp( void )
-                       ^
-Warning[Pe177]: function "GetLamp" was declared but never referenced
     410          {
     411            uint8 ret;
     412            
@@ -1060,88 +995,266 @@ Warning[Pe177]: function "GetLamp" was declared but never referenced
     422            return ret;
     423          }
     424          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
     425          static void ProjectApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
+   \                     ProjectApp_MessageMSGCB:
     426          {
-    427            switch ( pkt->clusterId )
-    428            {
-    429              case PROJECTAPP_CLUSTERID:
-    430                printf("%s\r\n", pkt->cmd.Data);
-    431                break;
-    432            }
-    433          }
-    434          
-    435          /*********************************************************************
-    436           * @fn      ProjectApp_SendTheMessage
-    437           *
-    438           * @brief   Send "the" message.
-    439           *
-    440           * @param   none
-    441           *
-    442           * @return  none
-    443           */
-    444          static void ProjectApp_SendTheMessage( void )
-    445          {
-    446            char theMessageData[] = "Hello World";
-    447          
-    448            if ( AF_DataRequest( &ProjectApp_DstAddr, &ProjectApp_epDesc,
-    449                                 PROJECTAPP_CLUSTERID,
-    450                                 (byte)osal_strlen( theMessageData ) + 1,
-    451                                 (byte *)&theMessageData,
-    452                                 &ProjectApp_TransID,
-    453                                 AF_DISCV_ROUTE, AF_DEFAULT_RADIUS ) == afStatus_SUCCESS )
-    454            {
-    455              // Successfully requested to be sent.
-    456            }
-    457            else
-    458            {
-    459              // Error occurred in request to send.
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000                REQUIRE ?V2
+   \   000000                REQUIRE ?V4
+   \   000000                REQUIRE ?V5
+   \   000000   74F2         MOV       A,#-0xe
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 14
+   \   000005                ; Auto size: 3
+   \   000005   74FD         MOV       A,#-0x3
+   \   000007   12....       LCALL     ?ALLOC_XSTACK8
+   \   00000A   EA           MOV       A,R2
+   \   00000B   FE           MOV       R6,A
+   \   00000C   EB           MOV       A,R3
+   \   00000D   FF           MOV       R7,A
+    427            uint8 jidianqi;
+    428            jidianqi = GetLamp(); //jidianqid的状态 1为高电平 0 为低电平 低电平触发（0开 1关）
+   \   00000E   E580         MOV       A,0x80
+    429            switch ( pkt->clusterId )
+   \   000010   8A82         MOV       DPL,R2
+   \   000012   8B83         MOV       DPH,R3
+   \   000014   A3           INC       DPTR
+   \   000015   A3           INC       DPTR
+   \   000016   A3           INC       DPTR
+   \   000017   A3           INC       DPTR
+   \   000018   E0           MOVX      A,@DPTR
+   \   000019   6401         XRL       A,#0x1
+   \   00001B   7002         JNZ       ??ProjectApp_MessageMSGCB_0
+   \   00001D   A3           INC       DPTR
+   \   00001E   E0           MOVX      A,@DPTR
+   \                     ??ProjectApp_MessageMSGCB_0:
+   \   00001F   705E         JNZ       ??ProjectApp_MessageMSGCB_1
+    430            {
+    431               unsigned char buffer[3];
+    432              case PROJECTAPP_CLUSTERID:
+    433                osal_memcpy(buffer,pkt->cmd.Data,2);//将接收到的数据复制到buffer区
+   \   000021   EA           MOV       A,R2
+   \   000022   2422         ADD       A,#0x22
+   \   000024   F5..         MOV       ?V4,A
+   \   000026   E4           CLR       A
+   \   000027   3F           ADDC      A,R7
+   \   000028   F5..         MOV       ?V5,A
+   \   00002A                ; Setup parameters for call to function osal_memcpy
+   \   00002A   85..82       MOV       DPL,?V4
+   \   00002D   F583         MOV       DPH,A
+   \   00002F   E0           MOVX      A,@DPTR
+   \   000030   F5..         MOV       ?V0,A
+   \   000032   A3           INC       DPTR
+   \   000033   E0           MOVX      A,@DPTR
+   \   000034   F5..         MOV       ?V1,A
+   \   000036   75..00       MOV       ?V2,#0x0
+   \   000039   78..         MOV       R0,#?V0
+   \   00003B   12....       LCALL     ?PUSH_XSTACK_I_THREE
+   \   00003E   7C02         MOV       R4,#0x2
+   \   000040   7D00         MOV       R5,#0x0
+   \   000042   7403         MOV       A,#0x3
+   \   000044   12....       LCALL     ?XSTACK_DISP101_8
+   \   000047   12....       LCALL     `??osal_memcpy::?relay`; Banked call to: osal_memcpy
+   \   00004A   7403         MOV       A,#0x3
+   \   00004C   12....       LCALL     ?DEALLOC_XSTACK8
+    434                HalUARTWrite(0, pkt->cmd.Data, pkt->cmd.DataLength); //输出接收到的数据
+   \   00004F                ; Setup parameters for call to function HalUARTWrite
+   \   00004F   EE           MOV       A,R6
+   \   000050   2420         ADD       A,#0x20
+   \   000052   F582         MOV       DPL,A
+   \   000054   E4           CLR       A
+   \   000055   3F           ADDC      A,R7
+   \   000056   F583         MOV       DPH,A
+   \   000058   E0           MOVX      A,@DPTR
+   \   000059   FC           MOV       R4,A
+   \   00005A   A3           INC       DPTR
+   \   00005B   E0           MOVX      A,@DPTR
+   \   00005C   FD           MOV       R5,A
+   \   00005D   85..82       MOV       DPL,?V4
+   \   000060   85..83       MOV       DPH,?V5
+   \   000063   E0           MOVX      A,@DPTR
+   \   000064   FA           MOV       R2,A
+   \   000065   A3           INC       DPTR
+   \   000066   E0           MOVX      A,@DPTR
+   \   000067   FB           MOV       R3,A
+   \   000068   7900         MOV       R1,#0x0
+   \   00006A   12....       LCALL     `??HalUARTWrite::?relay`; Banked call to: HalUARTWrite
+    435                if(buffer[0] <= 3)
+   \   00006D   85..82       MOV       DPL,?XSP + 0
+   \   000070   85..83       MOV       DPH,?XSP + 1
+   \   000073   E0           MOVX      A,@DPTR
+   \   000074   C3           CLR       C
+   \   000075   9404         SUBB      A,#0x4
+   \   000077   4004         JC        ??ProjectApp_MessageMSGCB_2
+    436                {
+    437                  P0_5=1;
+    438                }
+    439                else if((buffer[0] <= 3) && jidianqi==0)
+    440                {
+    441                  
+    442                }
+    443                else if(buffer[0] > 3 )
+    444                {
+    445                  P0_5=0;
+    446                }
+    447                else if((buffer[0] > 3) && jidianqi==1)
+    448                {
+    449                  
+    450                }
+    451                else if((strstr((const char *)UART0_RX_BUFF,"turn on fan"))&&jidianqi==1)
+    452                {
+    453                  P0_5=0;
+   \   000079   C285         CLR       0x80.5
+   \   00007B   8002         SJMP      ??ProjectApp_MessageMSGCB_1
+    454                }
+    455                else if((strstr((const char*)UART0_RX_BUFF,"turn off fan"))&&jidianqi==0)
+    456                {
+    457                  P0_5=1;
+   \                     ??ProjectApp_MessageMSGCB_2:
+   \   00007D   D285         SETB      0x80.5
+    458                }
+    459                break;
     460            }
     461          }
+   \                     ??ProjectApp_MessageMSGCB_1:
+   \   00007F   7403         MOV       A,#0x3
+   \   000081   12....       LCALL     ?DEALLOC_XSTACK8
+   \   000084   7F06         MOV       R7,#0x6
+   \   000086   02....       LJMP      ?BANKED_LEAVE_XDATA
+   \   000089                REQUIRE _A_P0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine3:
+   \   000000   12....       LCALL     `??osal_strlen::?relay`; Banked call to: osal_strlen
+   \   000003                ; Setup parameters for call to function AF_DataRequest
+   \   000003                ; Setup parameters for call to function AF_DataRequest
+   \   000003   75..1E       MOV       ?V0,#0x1e
+   \   000006   78..         MOV       R0,#?V0
+   \   000008   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   EA           MOV       A,R2
+   \   000001   2401         ADD       A,#0x1
+   \   000003   F5..         MOV       ?V0,A
+   \   000005   E4           CLR       A
+   \   000006   3400         ADDC      A,#0x0
+   \   000008   F5..         MOV       ?V1,A
+   \   00000A   78..         MOV       R0,#?V0
+   \   00000C   22           RET
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "Bind success!\\r\\n">`:
+   \   000000   42696E64     DB "Bind success!\015\012"
+   \            20737563
+   \            63657373
+   \            210D0A00
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "Bind failure!\\r\\n">`:
+   \   000000   42696E64     DB "Bind failure!\015\012"
+   \            20666169
+   \            6C757265
+   \            210D0A00
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "Bind data\\r\\n">`:
+   \   000000   42696E64     DB "Bind data\015\012"
+   \            20646174
+   \            610D0A00
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \   000000   7475726E     DB "turn on fan"
+   \            206F6E20
+   \            66616E00
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \   000000   7475726E     DB "turn off fan"
+   \            206F6666
+   \            2066616E
+   \            00      
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "Hello World">`:
+   \   000000   48656C6C     DB "Hello World"
+   \            6F20576F
+   \            726C6400
     462          
-    463          #if defined( IAR_ARMCM3_LM )
-    464          /*********************************************************************
-    465           * @fn      ProjectApp_ProcessRtosMessage
-    466           *
-    467           * @brief   Receive message from RTOS queue, send response back.
-    468           *
-    469           * @param   none
-    470           *
-    471           * @return  none
-    472           */
-    473          static void ProjectApp_ProcessRtosMessage( void )
-    474          {
-    475            osalQueue_t inMsg;
-    476          
-    477            if ( osal_queue_receive( OsalQueue, &inMsg, 0 ) == pdPASS )
-    478            {
-    479              uint8 cmndId = inMsg.cmnd;
-    480              uint32 counter = osal_build_uint32( inMsg.cbuf, 4 );
-    481          
-    482              switch ( cmndId )
-    483              {
-    484                case CMD_INCR:
-    485                  counter += 1;  /* Increment the incoming counter */
-    486                                 /* Intentionally fall through next case */
-    487          
-    488                case CMD_ECHO:
-    489                {
-    490                  userQueue_t outMsg;
-    491          
-    492                  outMsg.resp = RSP_CODE | cmndId;  /* Response ID */
-    493                  osal_buffer_uint32( outMsg.rbuf, counter );    /* Increment counter */
-    494                  osal_queue_send( UserQueue1, &outMsg, 0 );  /* Send back to UserTask */
-    495                  break;
-    496                }
-    497                
-    498                default:
-    499                  break;  /* Ignore unknown command */    
-    500              }
-    501            }
-    502          }
-    503          #endif
+    463          /*********************************************************************
+    464           * @fn      ProjectApp_SendTheMessage
+    465           *
+    466           * @brief   Send "the" message.
+    467           *
+    468           * @param   none
+    469           *
+    470           * @return  none
+    471           */
+    472          static void ProjectApp_SendTheMessage( void )
+    473          {
+    474            char theMessageData[] = "Hello World";
+    475          
+    476            if ( AF_DataRequest( &ProjectApp_DstAddr, &ProjectApp_epDesc,
+    477                                 PROJECTAPP_CLUSTERID,
+    478                                 (byte)osal_strlen( theMessageData ) + 1,
+    479                                 (byte *)&theMessageData,
+    480                                 &ProjectApp_TransID,
+    481                                 AF_DISCV_ROUTE, AF_DEFAULT_RADIUS ) == afStatus_SUCCESS )
+    482            {
+    483              // Successfully requested to be sent.
+    484            }
+    485            else
+    486            {
+    487              // Error occurred in request to send.
+    488            }
+    489          }
+    490          
+    491          #if defined( IAR_ARMCM3_LM )
+    492          /*********************************************************************
+    493           * @fn      ProjectApp_ProcessRtosMessage
+    494           *
+    495           * @brief   Receive message from RTOS queue, send response back.
+    496           *
+    497           * @param   none
+    498           *
+    499           * @return  none
+    500           */
+    501          static void ProjectApp_ProcessRtosMessage( void )
+    502          {
+    503            osalQueue_t inMsg;
     504          
-    505          /*********************************************************************
-    506           */
+    505            if ( osal_queue_receive( OsalQueue, &inMsg, 0 ) == pdPASS )
+    506            {
+    507              uint8 cmndId = inMsg.cmnd;
+    508              uint32 counter = osal_build_uint32( inMsg.cbuf, 4 );
+    509          
+    510              switch ( cmndId )
+    511              {
+    512                case CMD_INCR:
+    513                  counter += 1;  /* Increment the incoming counter */
+    514                                 /* Intentionally fall through next case */
+    515          
+    516                case CMD_ECHO:
+    517                {
+    518                  userQueue_t outMsg;
+    519          
+    520                  outMsg.resp = RSP_CODE | cmndId;  /* Response ID */
+    521                  osal_buffer_uint32( outMsg.rbuf, counter );    /* Increment counter */
+    522                  osal_queue_send( UserQueue1, &outMsg, 0 );  /* Send back to UserTask */
+    523                  break;
+    524                }
+    525                
+    526                default:
+    527                  break;  /* Ignore unknown command */    
+    528              }
+    529            }
+    530          }
+    531          #endif
+    532          
+    533          /*********************************************************************
+    534           */
 
    Maximum stack usage in bytes:
 
@@ -1159,15 +1272,18 @@ Warning[Pe177]: function "GetLamp" was declared but never referenced
         9   -> USER_Uart0_Init
         9   -> ZDO_RegisterForZDOMsg
         9   -> afRegister
+     44   ProjectApp_MessageMSGCB
+       17   -> HalUARTWrite
+       20   -> osal_memcpy
      33   ProjectApp_ProcessEvent
        33   -> AF_DataRequest
        24   -> ProjectApp_HandleKeys
+       24   -> ProjectApp_MessageMSGCB
        24   -> osal_msg_deallocate
        24   -> osal_msg_receive
        24   -> osal_start_timerEx
        24   -> osal_strlen
        24   -> printf
-       26   -> printf
        24   -> user_state_change
 
 
@@ -1175,36 +1291,43 @@ Warning[Pe177]: function "GetLamp" was declared but never referenced
 
    Bytes  Function/Label
    -----  --------------
-       5  ?<Constant "%s\r\n">
       12  ?<Constant "Bind data\r\n">
       16  ?<Constant "Bind failure!\r\n">
       16  ?<Constant "Bind success!\r\n">
       12  ?<Constant "Hello World">
-      11  ??Subroutine2_0
+      13  ?<Constant "turn off fan">
+      12  ?<Constant "turn on fan">
+      11  ??Subroutine4_0
       13  ?Subroutine0
-       2  ?Subroutine1
+      13  ?Subroutine1
+       2  ?Subroutine2
+       9  ?Subroutine3
        2  ProjectApp_ClusterList
       12  ProjectApp_DstAddr
-     334  ProjectApp_HandleKeys
+     320  ProjectApp_HandleKeys
       85  ProjectApp_Init
+     137  ProjectApp_MessageMSGCB
        1  ProjectApp_NwkState
-     347  ProjectApp_ProcessEvent
+     298  ProjectApp_ProcessEvent
       12  ProjectApp_SimpleDesc
        1  ProjectApp_TaskID
        1  ProjectApp_TransID
        6  ProjectApp_epDesc
-      18  -- Other
+       1  _A_P0
+      24  -- Other
 
  
- 792 bytes in segment BANKED_CODE
-  18 bytes in segment BANK_RELAYS
-  75 bytes in segment XDATA_ROM_C
+ 888 bytes in segment BANKED_CODE
+  24 bytes in segment BANK_RELAYS
+   1 byte  in segment SFR_AN
+  95 bytes in segment XDATA_ROM_C
   21 bytes in segment XDATA_Z
  
-  18 bytes of CODE     memory
-  75 bytes of CONST    memory
- 792 bytes of HUGECODE memory
+  24 bytes of CODE     memory
+  95 bytes of CONST    memory
+   0 bytes of DATA     memory (+ 1 byte shared)
+ 888 bytes of HUGECODE memory
   21 bytes of XDATA    memory
 
 Errors: none
-Warnings: 1
+Warnings: none
