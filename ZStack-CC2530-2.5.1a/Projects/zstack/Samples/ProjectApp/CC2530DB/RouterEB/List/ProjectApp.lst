@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V10.30.1.6000 for 8051               16/Jul/2019  23:26:19
+# IAR C/C++ Compiler V10.30.1.6000 for 8051               17/Jul/2019  00:36:43
 # Copyright 2004-2018 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for 8051
 #
@@ -14,7 +14,7 @@
 #    Source file        =  
 #        E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\Source\ProjectApp.c
 #    Command line       =  
-#        -f C:\Users\Admin\AppData\Local\Temp\EWB3D.tmp
+#        -f C:\Users\Admin\AppData\Local\Temp\EW7E4E.tmp
 #        (E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\Source\ProjectApp.c
 #        -D xZTOOL_P1 -D xMT_TASK -D xMT_SYS_FUNC -D xMT_ZDO_FUNC -D
 #        HAL_UART=TRUE -D xLCD_SUPPORTED=DEBUG -D HAL_LCD=FALSE -lC
@@ -114,6 +114,16 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
    \   union <unnamed> volatile __sfr _A_P0
    \                     _A_P0:
    \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xf3
+   \   unsigned char volatile __sfr P0SEL
+   \                     P0SEL:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xfd
+   \   unsigned char volatile __sfr P0DIR
+   \                     P0DIR:
+   \   000000                DS 1
      13          #endif
      14          
      15          /* HAL */
@@ -148,7 +158,7 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
      44          #define LAMP_PIN     P0_5  //定义P0.5口为继电器输入端
      45          
      46          static uint8 GetLamp( void );
-     47          
+     47          static uint8 IOInit(void);
      48          // This list should be filled with Application specific Cluster IDs.
 
    \                                 In  segment XDATA_ROM_C, align 1
@@ -978,28 +988,33 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
     405                          );
     406          }
     407          
-    408          
-    409          uint8 GetLamp( void )
-    410          {
-    411            uint8 ret;
-    412            
-    413            if(LAMP_PIN == 0)
-    414            {
-    415              ret = 0;
-    416            }
-    417            else
-    418            {
-    419              ret = 1;
-    420            }
-    421            
-    422            return ret;
-    423          }
-    424          
+    408          uint8 IOInit(void)
+    409          { P0SEL &= BV(5);
+    410            P0DIR |= BV(5);
+    411            return 0;
+    412          }
+    413          
+    414          uint8 GetLamp( void )
+    415          {
+    416            uint8 ret;
+    417            IOInit();
+    418            if(LAMP_PIN == 0)
+    419            {
+    420              ret = 0;
+    421            }
+    422            else
+    423            {
+    424              ret = 1;
+    425            }
+    426            
+    427            return ret;
+    428          }
+    429          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    425          static void ProjectApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
+    430          static void ProjectApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
    \                     ProjectApp_MessageMSGCB:
-    426          {
+    431          {
    \   000000                REQUIRE ?V0
    \   000000                REQUIRE ?V1
    \   000000                REQUIRE ?V2
@@ -1015,116 +1030,120 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
    \   00000B   FE           MOV       R6,A
    \   00000C   EB           MOV       A,R3
    \   00000D   FF           MOV       R7,A
-    427            uint8 jidianqi;
-    428            jidianqi = GetLamp(); //jidianqid的状态 1为高电平 0 为低电平 低电平触发（0开 1关）
-   \   00000E   E580         MOV       A,0x80
-    429            switch ( pkt->clusterId )
-   \   000010   8A82         MOV       DPL,R2
-   \   000012   8B83         MOV       DPH,R3
-   \   000014   A3           INC       DPTR
-   \   000015   A3           INC       DPTR
-   \   000016   A3           INC       DPTR
-   \   000017   A3           INC       DPTR
-   \   000018   E0           MOVX      A,@DPTR
-   \   000019   6401         XRL       A,#0x1
-   \   00001B   7002         JNZ       ??ProjectApp_MessageMSGCB_0
+    432            uint8 jidianqi;
+    433            jidianqi = GetLamp(); //jidianqid的状态 1为高电平 0 为低电平 低电平触发（0开 1关）
+   \   00000E   53F320       ANL       0xf3,#0x20
+   \   000011   43FD20       ORL       0xfd,#0x20
+   \   000014   E580         MOV       A,0x80
+    434            switch ( pkt->clusterId )
+   \   000016   8A82         MOV       DPL,R2
+   \   000018   8B83         MOV       DPH,R3
+   \   00001A   A3           INC       DPTR
+   \   00001B   A3           INC       DPTR
+   \   00001C   A3           INC       DPTR
    \   00001D   A3           INC       DPTR
    \   00001E   E0           MOVX      A,@DPTR
+   \   00001F   6401         XRL       A,#0x1
+   \   000021   7002         JNZ       ??ProjectApp_MessageMSGCB_0
+   \   000023   A3           INC       DPTR
+   \   000024   E0           MOVX      A,@DPTR
    \                     ??ProjectApp_MessageMSGCB_0:
-   \   00001F   705E         JNZ       ??ProjectApp_MessageMSGCB_1
-    430            {
-    431               unsigned char buffer[3];
-    432              case PROJECTAPP_CLUSTERID:
-    433                osal_memcpy(buffer,pkt->cmd.Data,2);//将接收到的数据复制到buffer区
-   \   000021   EA           MOV       A,R2
-   \   000022   2422         ADD       A,#0x22
-   \   000024   F5..         MOV       ?V4,A
-   \   000026   E4           CLR       A
-   \   000027   3F           ADDC      A,R7
-   \   000028   F5..         MOV       ?V5,A
-   \   00002A                ; Setup parameters for call to function osal_memcpy
-   \   00002A   85..82       MOV       DPL,?V4
-   \   00002D   F583         MOV       DPH,A
-   \   00002F   E0           MOVX      A,@DPTR
-   \   000030   F5..         MOV       ?V0,A
-   \   000032   A3           INC       DPTR
-   \   000033   E0           MOVX      A,@DPTR
-   \   000034   F5..         MOV       ?V1,A
-   \   000036   75..00       MOV       ?V2,#0x0
-   \   000039   78..         MOV       R0,#?V0
-   \   00003B   12....       LCALL     ?PUSH_XSTACK_I_THREE
-   \   00003E   7C02         MOV       R4,#0x2
-   \   000040   7D00         MOV       R5,#0x0
-   \   000042   7403         MOV       A,#0x3
-   \   000044   12....       LCALL     ?XSTACK_DISP101_8
-   \   000047   12....       LCALL     `??osal_memcpy::?relay`; Banked call to: osal_memcpy
-   \   00004A   7403         MOV       A,#0x3
-   \   00004C   12....       LCALL     ?DEALLOC_XSTACK8
-    434                HalUARTWrite(0, pkt->cmd.Data, pkt->cmd.DataLength); //输出接收到的数据
-   \   00004F                ; Setup parameters for call to function HalUARTWrite
-   \   00004F   EE           MOV       A,R6
-   \   000050   2420         ADD       A,#0x20
-   \   000052   F582         MOV       DPL,A
-   \   000054   E4           CLR       A
-   \   000055   3F           ADDC      A,R7
-   \   000056   F583         MOV       DPH,A
-   \   000058   E0           MOVX      A,@DPTR
-   \   000059   FC           MOV       R4,A
-   \   00005A   A3           INC       DPTR
-   \   00005B   E0           MOVX      A,@DPTR
-   \   00005C   FD           MOV       R5,A
-   \   00005D   85..82       MOV       DPL,?V4
-   \   000060   85..83       MOV       DPH,?V5
-   \   000063   E0           MOVX      A,@DPTR
-   \   000064   FA           MOV       R2,A
-   \   000065   A3           INC       DPTR
-   \   000066   E0           MOVX      A,@DPTR
-   \   000067   FB           MOV       R3,A
-   \   000068   7900         MOV       R1,#0x0
-   \   00006A   12....       LCALL     `??HalUARTWrite::?relay`; Banked call to: HalUARTWrite
-    435                if(buffer[0] <= 3)
-   \   00006D   85..82       MOV       DPL,?XSP + 0
-   \   000070   85..83       MOV       DPH,?XSP + 1
-   \   000073   E0           MOVX      A,@DPTR
-   \   000074   C3           CLR       C
-   \   000075   9404         SUBB      A,#0x4
-   \   000077   4004         JC        ??ProjectApp_MessageMSGCB_2
-    436                {
-    437                  P0_5=1;
-    438                }
-    439                else if((buffer[0] <= 3) && jidianqi==0)
-    440                {
-    441                  
-    442                }
-    443                else if(buffer[0] > 3 )
-    444                {
-    445                  P0_5=0;
-    446                }
-    447                else if((buffer[0] > 3) && jidianqi==1)
-    448                {
-    449                  
-    450                }
-    451                else if((strstr((const char *)UART0_RX_BUFF,"turn on fan"))&&jidianqi==1)
-    452                {
-    453                  P0_5=0;
-   \   000079   C285         CLR       0x80.5
-   \   00007B   8002         SJMP      ??ProjectApp_MessageMSGCB_1
-    454                }
-    455                else if((strstr((const char*)UART0_RX_BUFF,"turn off fan"))&&jidianqi==0)
-    456                {
-    457                  P0_5=1;
+   \   000025   705D         JNZ       ??ProjectApp_MessageMSGCB_1
+    435            {
+    436               unsigned char buffer[3];
+    437              case PROJECTAPP_CLUSTERID:
+    438                osal_memcpy(buffer,pkt->cmd.Data,3);//将接收到的数据复制到buffer区
+   \   000027   EA           MOV       A,R2
+   \   000028   2422         ADD       A,#0x22
+   \   00002A   F5..         MOV       ?V4,A
+   \   00002C   E4           CLR       A
+   \   00002D   3F           ADDC      A,R7
+   \   00002E   F5..         MOV       ?V5,A
+   \   000030                ; Setup parameters for call to function osal_memcpy
+   \   000030   85..82       MOV       DPL,?V4
+   \   000033   F583         MOV       DPH,A
+   \   000035   E0           MOVX      A,@DPTR
+   \   000036   F5..         MOV       ?V0,A
+   \   000038   A3           INC       DPTR
+   \   000039   E0           MOVX      A,@DPTR
+   \   00003A   F5..         MOV       ?V1,A
+   \   00003C   75..00       MOV       ?V2,#0x0
+   \   00003F   78..         MOV       R0,#?V0
+   \   000041   12....       LCALL     ?PUSH_XSTACK_I_THREE
+   \   000044   7C03         MOV       R4,#0x3
+   \   000046   7D00         MOV       R5,#0x0
+   \   000048   EC           MOV       A,R4
+   \   000049   12....       LCALL     ?XSTACK_DISP101_8
+   \   00004C   12....       LCALL     `??osal_memcpy::?relay`; Banked call to: osal_memcpy
+   \   00004F   7403         MOV       A,#0x3
+   \   000051   12....       LCALL     ?DEALLOC_XSTACK8
+    439                HalUARTWrite(0, pkt->cmd.Data, pkt->cmd.DataLength); //输出接收到的数据
+   \   000054                ; Setup parameters for call to function HalUARTWrite
+   \   000054   EE           MOV       A,R6
+   \   000055   2420         ADD       A,#0x20
+   \   000057   F582         MOV       DPL,A
+   \   000059   E4           CLR       A
+   \   00005A   3F           ADDC      A,R7
+   \   00005B   F583         MOV       DPH,A
+   \   00005D   E0           MOVX      A,@DPTR
+   \   00005E   FC           MOV       R4,A
+   \   00005F   A3           INC       DPTR
+   \   000060   E0           MOVX      A,@DPTR
+   \   000061   FD           MOV       R5,A
+   \   000062   85..82       MOV       DPL,?V4
+   \   000065   85..83       MOV       DPH,?V5
+   \   000068   E0           MOVX      A,@DPTR
+   \   000069   FA           MOV       R2,A
+   \   00006A   A3           INC       DPTR
+   \   00006B   E0           MOVX      A,@DPTR
+   \   00006C   FB           MOV       R3,A
+   \   00006D   7900         MOV       R1,#0x0
+   \   00006F   12....       LCALL     `??HalUARTWrite::?relay`; Banked call to: HalUARTWrite
+    440                if(buffer[0] <= 3)
+   \   000072   85..82       MOV       DPL,?XSP + 0
+   \   000075   85..83       MOV       DPH,?XSP + 1
+   \   000078   E0           MOVX      A,@DPTR
+   \   000079   C3           CLR       C
+   \   00007A   9404         SUBB      A,#0x4
+   \   00007C   4004         JC        ??ProjectApp_MessageMSGCB_2
+    441                {
+    442                  P0_5=1;
+    443                }
+    444                else if((buffer[0] <= 3) && jidianqi==0)
+    445                {
+    446                  
+    447                }
+    448                else if(buffer[0] > 3 )
+    449                {
+    450                  P0_5=0;
+    451                }
+    452                else if((buffer[0] > 3) && jidianqi==1)
+    453                {
+    454                  
+    455                }
+    456                else if((strstr((const char *)UART0_RX_BUFF,"turn on fan"))&&jidianqi==1)
+    457                {
+    458                  P0_5=0;
+   \   00007E   C285         CLR       0x80.5
+   \   000080   8002         SJMP      ??ProjectApp_MessageMSGCB_1
+    459                }
+    460                else if((strstr((const char*)UART0_RX_BUFF,"turn off fan"))&&jidianqi==0)
+    461                {
+    462                  P0_5=1;
    \                     ??ProjectApp_MessageMSGCB_2:
-   \   00007D   D285         SETB      0x80.5
-    458                }
-    459                break;
-    460            }
-    461          }
+   \   000082   D285         SETB      0x80.5
+    463                }
+    464                break;
+    465            }
+    466          }
    \                     ??ProjectApp_MessageMSGCB_1:
-   \   00007F   7403         MOV       A,#0x3
-   \   000081   12....       LCALL     ?DEALLOC_XSTACK8
-   \   000084   7F06         MOV       R7,#0x6
-   \   000086   02....       LJMP      ?BANKED_LEAVE_XDATA
-   \   000089                REQUIRE _A_P0
+   \   000084   7403         MOV       A,#0x3
+   \   000086   12....       LCALL     ?DEALLOC_XSTACK8
+   \   000089   7F06         MOV       R7,#0x6
+   \   00008B   02....       LJMP      ?BANKED_LEAVE_XDATA
+   \   00008E                REQUIRE _A_P0
+   \   00008E                REQUIRE P0SEL
+   \   00008E                REQUIRE P0DIR
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine3:
@@ -1182,79 +1201,79 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
    \   000000   48656C6C     DB "Hello World"
    \            6F20576F
    \            726C6400
-    462          
-    463          /*********************************************************************
-    464           * @fn      ProjectApp_SendTheMessage
-    465           *
-    466           * @brief   Send "the" message.
-    467           *
-    468           * @param   none
-    469           *
-    470           * @return  none
-    471           */
-    472          static void ProjectApp_SendTheMessage( void )
-    473          {
-    474            char theMessageData[] = "Hello World";
-    475          
-    476            if ( AF_DataRequest( &ProjectApp_DstAddr, &ProjectApp_epDesc,
-    477                                 PROJECTAPP_CLUSTERID,
-    478                                 (byte)osal_strlen( theMessageData ) + 1,
-    479                                 (byte *)&theMessageData,
-    480                                 &ProjectApp_TransID,
-    481                                 AF_DISCV_ROUTE, AF_DEFAULT_RADIUS ) == afStatus_SUCCESS )
-    482            {
-    483              // Successfully requested to be sent.
-    484            }
-    485            else
-    486            {
-    487              // Error occurred in request to send.
-    488            }
-    489          }
-    490          
-    491          #if defined( IAR_ARMCM3_LM )
-    492          /*********************************************************************
-    493           * @fn      ProjectApp_ProcessRtosMessage
-    494           *
-    495           * @brief   Receive message from RTOS queue, send response back.
-    496           *
-    497           * @param   none
-    498           *
-    499           * @return  none
-    500           */
-    501          static void ProjectApp_ProcessRtosMessage( void )
-    502          {
-    503            osalQueue_t inMsg;
-    504          
-    505            if ( osal_queue_receive( OsalQueue, &inMsg, 0 ) == pdPASS )
-    506            {
-    507              uint8 cmndId = inMsg.cmnd;
-    508              uint32 counter = osal_build_uint32( inMsg.cbuf, 4 );
+    467          
+    468          /*********************************************************************
+    469           * @fn      ProjectApp_SendTheMessage
+    470           *
+    471           * @brief   Send "the" message.
+    472           *
+    473           * @param   none
+    474           *
+    475           * @return  none
+    476           */
+    477          static void ProjectApp_SendTheMessage( void )
+    478          {
+    479            char theMessageData[] = "Hello World";
+    480          
+    481            if ( AF_DataRequest( &ProjectApp_DstAddr, &ProjectApp_epDesc,
+    482                                 PROJECTAPP_CLUSTERID,
+    483                                 (byte)osal_strlen( theMessageData ) + 1,
+    484                                 (byte *)&theMessageData,
+    485                                 &ProjectApp_TransID,
+    486                                 AF_DISCV_ROUTE, AF_DEFAULT_RADIUS ) == afStatus_SUCCESS )
+    487            {
+    488              // Successfully requested to be sent.
+    489            }
+    490            else
+    491            {
+    492              // Error occurred in request to send.
+    493            }
+    494          }
+    495          
+    496          #if defined( IAR_ARMCM3_LM )
+    497          /*********************************************************************
+    498           * @fn      ProjectApp_ProcessRtosMessage
+    499           *
+    500           * @brief   Receive message from RTOS queue, send response back.
+    501           *
+    502           * @param   none
+    503           *
+    504           * @return  none
+    505           */
+    506          static void ProjectApp_ProcessRtosMessage( void )
+    507          {
+    508            osalQueue_t inMsg;
     509          
-    510              switch ( cmndId )
-    511              {
-    512                case CMD_INCR:
-    513                  counter += 1;  /* Increment the incoming counter */
-    514                                 /* Intentionally fall through next case */
-    515          
-    516                case CMD_ECHO:
-    517                {
-    518                  userQueue_t outMsg;
-    519          
-    520                  outMsg.resp = RSP_CODE | cmndId;  /* Response ID */
-    521                  osal_buffer_uint32( outMsg.rbuf, counter );    /* Increment counter */
-    522                  osal_queue_send( UserQueue1, &outMsg, 0 );  /* Send back to UserTask */
-    523                  break;
-    524                }
-    525                
-    526                default:
-    527                  break;  /* Ignore unknown command */    
-    528              }
-    529            }
-    530          }
-    531          #endif
-    532          
-    533          /*********************************************************************
-    534           */
+    510            if ( osal_queue_receive( OsalQueue, &inMsg, 0 ) == pdPASS )
+    511            {
+    512              uint8 cmndId = inMsg.cmnd;
+    513              uint32 counter = osal_build_uint32( inMsg.cbuf, 4 );
+    514          
+    515              switch ( cmndId )
+    516              {
+    517                case CMD_INCR:
+    518                  counter += 1;  /* Increment the incoming counter */
+    519                                 /* Intentionally fall through next case */
+    520          
+    521                case CMD_ECHO:
+    522                {
+    523                  userQueue_t outMsg;
+    524          
+    525                  outMsg.resp = RSP_CODE | cmndId;  /* Response ID */
+    526                  osal_buffer_uint32( outMsg.rbuf, counter );    /* Increment counter */
+    527                  osal_queue_send( UserQueue1, &outMsg, 0 );  /* Send back to UserTask */
+    528                  break;
+    529                }
+    530                
+    531                default:
+    532                  break;  /* Ignore unknown command */    
+    533              }
+    534            }
+    535          }
+    536          #endif
+    537          
+    538          /*********************************************************************
+    539           */
 
    Maximum stack usage in bytes:
 
@@ -1302,11 +1321,13 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
       13  ?Subroutine1
        2  ?Subroutine2
        9  ?Subroutine3
+       1  P0DIR
+       1  P0SEL
        2  ProjectApp_ClusterList
       12  ProjectApp_DstAddr
      320  ProjectApp_HandleKeys
       85  ProjectApp_Init
-     137  ProjectApp_MessageMSGCB
+     142  ProjectApp_MessageMSGCB
        1  ProjectApp_NwkState
      298  ProjectApp_ProcessEvent
       12  ProjectApp_SimpleDesc
@@ -1317,16 +1338,16 @@ E:\GitHub\DHT11-Router\ZStack-CC2530-2.5.1a\Projects\zstack\Samples\ProjectApp\S
       24  -- Other
 
  
- 888 bytes in segment BANKED_CODE
+ 893 bytes in segment BANKED_CODE
   24 bytes in segment BANK_RELAYS
-   1 byte  in segment SFR_AN
+   3 bytes in segment SFR_AN
   95 bytes in segment XDATA_ROM_C
   21 bytes in segment XDATA_Z
  
   24 bytes of CODE     memory
   95 bytes of CONST    memory
-   0 bytes of DATA     memory (+ 1 byte shared)
- 888 bytes of HUGECODE memory
+   0 bytes of DATA     memory (+ 3 bytes shared)
+ 893 bytes of HUGECODE memory
   21 bytes of XDATA    memory
 
 Errors: none

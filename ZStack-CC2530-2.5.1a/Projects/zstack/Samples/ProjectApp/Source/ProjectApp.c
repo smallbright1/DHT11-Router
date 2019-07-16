@@ -44,7 +44,7 @@
 #define LAMP_PIN     P0_5  //定义P0.5口为继电器输入端
 
 static uint8 GetLamp( void );
-
+static uint8 IOInit(void);
 // This list should be filled with Application specific Cluster IDs.
 const cId_t ProjectApp_ClusterList[PROJECTAPP_MAX_CLUSTERS] =
 {
@@ -405,11 +405,16 @@ static void ProjectApp_SendBindcast( void )
                 );
 }
 
+uint8 IOInit(void)
+{ P0SEL &= BV(5);
+  P0DIR |= BV(5);
+  return 0;
+}
 
 uint8 GetLamp( void )
 {
   uint8 ret;
-  
+  IOInit();
   if(LAMP_PIN == 0)
   {
     ret = 0;
@@ -430,7 +435,7 @@ static void ProjectApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
   {
      unsigned char buffer[3];
     case PROJECTAPP_CLUSTERID:
-      osal_memcpy(buffer,pkt->cmd.Data,2);//将接收到的数据复制到buffer区
+      osal_memcpy(buffer,pkt->cmd.Data,3);//将接收到的数据复制到buffer区
       HalUARTWrite(0, pkt->cmd.Data, pkt->cmd.DataLength); //输出接收到的数据
       if(buffer[0] <= 3)
       {
