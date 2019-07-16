@@ -3,6 +3,7 @@
 #include "ZDApp.h"
 #include "ZDObject.h"
 #include "ZDProfile.h"
+#include "string.h"
 
 #include "ProjectApp.h"
 #include "DebugTrace.h"
