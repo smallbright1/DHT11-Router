@@ -16,7 +16,7 @@ const uint8* devStates_str[11]=
   "DEV_ZB_COORD",           // Started as Zigbee Coordinator
   "DEV_NWK_ORPHAN"          // Device has lost information about its parent..
 };
-
+extern const cId_t ProjectApp_ClusterList[PROJECTAPP_MAX_CLUSTERS];
 void user_show_info(void)
 {
   uint8 *MacAddr = 0;
@@ -73,5 +73,18 @@ void user_state_change( devStates_t state )
     printf("\r\n");
     user_show_info();
     user_send_data((afAddrMode_t)Addr16Bit, 0x0000, "New Device Join");
+     if(state == DEV_ROUTER)
+     {
+    printf("Bind start!\r\n");//
+    zAddrType_t dstAddr;
+    dstAddr.addrMode = Addr16Bit;
+    dstAddr.addr.shortAddr = 0x0000; // Coordinator
+    ZDP_EndDeviceBindReq( &dstAddr, NLME_GetShortAddr(),
+                          ProjectApp_epDesc.endPoint,
+                          PROJECTAPP_PROFID,
+                          PROJECTAPP_MAX_CLUSTERS, (cId_t *)ProjectApp_ClusterList,
+                          PROJECTAPP_MAX_CLUSTERS, (cId_t *)ProjectApp_ClusterList,
+                          FALSE );
+     }
   }
 }

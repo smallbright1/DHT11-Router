@@ -41,10 +41,9 @@
 /*********************************************************************
  * GLOBAL VARIABLES
  */
-#define LAMP_PIN     P0_5  //定义P0.5口为继电器输入端
+//#define LAMP_PIN     P0_5  //定义P0.5口为继电器输入端
 
-static uint8 GetLamp( void );
-static uint8 IOInit(void);
+//static uint8 GetLamp( void );
 // This list should be filled with Application specific Cluster IDs.
 const cId_t ProjectApp_ClusterList[PROJECTAPP_MAX_CLUSTERS] =
 {
@@ -153,22 +152,16 @@ void ProjectApp_Init( uint8 task_id )
   // Register for all key events - This app will handle all key events
   RegisterForKeys( ProjectApp_TaskID );
 
-  // Update the display
-#if defined ( LCD_SUPPORTED )
-  HalLcdWriteString( "ProjectApp", HAL_LCD_LINE_1 );
-#endif
-
   ZDO_RegisterForZDOMsg( ProjectApp_TaskID, End_Device_Bind_rsp );
   ZDO_RegisterForZDOMsg( ProjectApp_TaskID, Match_Desc_rsp );
 
-#if defined( IAR_ARMCM3_LM )
-  // Register this task with RTOS task initiator
-  RTOS_RegisterApp( task_id, PROJECTAPP_RTOS_MSG_EVT );
-#endif
-  
    USER_Uart0_Init(HAL_UART_BR_115200);
+   ZDO_RegisterForZDOMsg( ProjectApp_TaskID, End_Device_Bind_rsp );
    
-ZDO_RegisterForZDOMsg( ProjectApp_TaskID, End_Device_Bind_rsp );
+//  P0SEL &= BV(5);
+//  P0DIR |= BV(5);
+  P1SEL &= BV(0);
+  P1DIR |= BV(0);
 }
 
 /*********************************************************************
@@ -405,66 +398,68 @@ static void ProjectApp_SendBindcast( void )
                 );
 }
 
-uint8 IOInit(void)
-{ P0SEL &= BV(5);
-  P0DIR |= BV(5);
-  return 0;
-}
+//uint8 GetLamp( void )
+//{
+//  uint8 ret;
+//  IOInit();
+//  if(LAMP_PIN == 0)
+//  {
+//    ret = 0;
+//  }
+//  else
+//  {
+//    ret = 1;
+//  }
+//  
+//  return ret;
+//}
 
-uint8 GetLamp( void )
-{
-  uint8 ret;
-  IOInit();
-  if(LAMP_PIN == 0)
-  {
-    ret = 0;
-  }
-  else
-  {
-    ret = 1;
-  }
-  
-  return ret;
-}
-
+//static void ProjectApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
+//{
+//  uint8 jidianqi;
+//  jidianqi = GetLamp(); //jidianqid的状态 1为高电平 0 为低电平 低电平触发（0开 1关）
+//  switch ( pkt->clusterId )
+//  {
+//     unsigned char buffer[4];
+//    case PROJECTAPP_CLUSTERID:
+//      osal_memcpy(buffer,pkt->cmd.Data,4);//将接收到的数据复制到buffer区
+//      printf("%s\r\n",jidianqi);
+//      if(buffer[0] <= 3&& jidianqi==0)
+//      {
+//        P0_5=1;
+//      }
+//      else if((buffer[0] > 3) && jidianqi==1)
+//      {
+//        P0_5=0;
+//      }
+//      break;
+//  }
+//}
 static void ProjectApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
 {
-  uint8 jidianqi;
-  jidianqi = GetLamp(); //jidianqid的状态 1为高电平 0 为低电平 低电平触发（0开 1关）
+ uint8 temperature = (pkt->cmd.Data[0]-'0')*10 + (pkt->cmd.Data[1]-'0');
+
   switch ( pkt->clusterId )
   {
-     unsigned char buffer[3];
     case PROJECTAPP_CLUSTERID:
-      osal_memcpy(buffer,pkt->cmd.Data,3);//将接收到的数据复制到buffer区
-      HalUARTWrite(0, pkt->cmd.Data, pkt->cmd.DataLength); //输出接收到的数据
-      if(buffer[0] <= 3)
+      if((temperature >= 31) && (P1_0 == 1))
       {
-        P0_5=1;
+        P1_0 = 0;
+        printf( "%d on\r\n", temperature );
       }
-      else if((buffer[0] <= 3) && jidianqi==0)
+      else if((temperature < 31) && (P1_0 == 0))
       {
-        
+        P1_0 = 1;
+        printf( "%d off\r\n", temperature );
       }
-      else if(buffer[0] > 3 )
+      else
       {
-        P0_5=0;
-      }
-      else if((buffer[0] > 3) && jidianqi==1)
-      {
-        
-      }
-      else if((strstr((const char *)UART0_RX_BUFF,"turn on fan"))&&jidianqi==1)
-      {
-        P0_5=0;
-      }
-      else if((strstr((const char*)UART0_RX_BUFF,"turn off fan"))&&jidianqi==0)
-      {
-        P0_5=1;
+        printf( "%d\r\n", temperature );
+        printf( "%s\r\n", pkt->cmd.Data);
       }
       break;
   }
 }
-
 /*********************************************************************
  * @fn      ProjectApp_SendTheMessage
  *

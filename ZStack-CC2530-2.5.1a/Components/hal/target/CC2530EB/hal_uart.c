@@ -183,7 +183,7 @@ uint16 HalUARTRead(uint8 port, uint8 *buf, uint16 len)
  * @brief   Write a buffer to the UART.
  *
  * @param   port - UART port
- *          buf  - pointer to the buffer that will be written, not freed
+ *          buf  - pointer to the buffer that will be transmitted, not freed
  *          len  - length of
  *
  * @return  length of the buffer that was sent
